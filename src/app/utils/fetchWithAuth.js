@@ -1,4 +1,6 @@
-const fetchWithAuth = async (url, options, setLogin) => {
+import fetchWithTimeOut from "./fetchWithTimeOut";
+
+const fetchWithAuth = async (url, options, setLogin, timeout = 5000) => {
   const token = localStorage.getItem("token");
   const headers = {
     ...options.headers,
@@ -7,7 +9,7 @@ const fetchWithAuth = async (url, options, setLogin) => {
   };
 
   try {
-    const response = await fetch(url, { ...options, headers });
+    const response = await fetchWithTimeOut(url, { ...options, headers }, timeout);
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -25,7 +27,7 @@ const fetchWithAuth = async (url, options, setLogin) => {
 
     return await response.json();
   } catch (error) {
-    throw error;
+      throw error;
   }
 };
 

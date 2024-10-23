@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
-const Users = () => {
+const Users = ({setLogin}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -9,42 +10,21 @@ const Users = () => {
   }, []);
 
   const URL_GET_USERS = "http://193.32.178.174:8080/api/users";
-  const token = localStorage.getItem("token");
 
   const fetchUsers = async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${token}`,
-        "content-type": "application/json",
-      },
-    };
-
     try {
-      const response = await fetch(URL_GET_USERS, options);
-      const json = await response.json();
-      setUsers(json);
+      const users = await fetchWithAuth(URL_GET_USERS, {method: 'GET'}, setLogin);
+      setUsers(users);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const style = {
-    container: {
-      fontSize: "20px",
-      marginTop: "50px",
-      marginBottom: "10px",
-      display: "flex",
-      justifyContent: "center",
-    },
-  };
-
   return (
     <main>
-      {}
       {users.map((user, id) => {
         return (
-          <div key={id} style={style.container}>
+          <div className="users flex-center" key={id}>
             <div>username: {user.username},</div>
             <div>email: {user.email},</div>
             <div>role: {user.role}</div>

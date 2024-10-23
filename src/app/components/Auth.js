@@ -9,6 +9,7 @@ const Auth = ({
   toggleAuth,
   isSignUp,
   requireFields,
+  setData
 }) => {
   const URL_LOGIN = "http://193.32.178.174:8080/login";
   const URL_REGISTRATION = "http://193.32.178.174:8080/signup";
@@ -25,7 +26,7 @@ const Auth = ({
         <Login
           request={() => authRequest(URL_LOGIN, requireFields)}
           value={value}
-          onChange={onChange}
+          onChange={(e) => onChange(e, setData)}
           message={messageExpression}
           toggleAuth={toggleAuth}
         />
@@ -33,7 +34,7 @@ const Auth = ({
         <Registration
           request={() => authRequest(URL_REGISTRATION, requireFields)}
           value={value}
-          onChange={onChange}
+          onChange={(e) => onChange(e, setData)}
           message={messageExpression}
           toggleAuth={toggleAuth}
         />

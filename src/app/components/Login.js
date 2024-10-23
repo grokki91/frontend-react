@@ -2,9 +2,9 @@ const Login = ({request, value, onChange, message, toggleAuth}) => {
 
   return (
     <>
-      <div className="auth">
+      <div className="auth flex-center">
         <h1>Log in</h1>
-        <div className="inputs">
+        <div className="inputs flex-center">
           <input type="text" placeholder="Username" value={value.username} onChange={onChange} name="username" autoFocus/>
           <input type="password" placeholder="Password" value={value.password} onChange={onChange} name="password"/>
           {message}
