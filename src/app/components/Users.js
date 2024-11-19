@@ -1,38 +1,42 @@
-import React, { useEffect, useState } from "react";
-import fetchWithAuth from "../utils/fetchWithAuth";
+import React, { useEffect } from "react";
+import Spinner from "./Spinner";
+import userStore from "../store/UserStore";
+import generalStore from "../store/GeneralStore";
+import { observer } from "mobx-react-lite";
 
-const Users = ({setLogin}) => {
-  const [users, setUsers] = useState([]);
+const Users = observer(() => {
+  const {users, getUsers, deleteUser} = userStore;
+  const {isLoading} = generalStore;
 
   useEffect(() => {
-    fetchUsers();
+    getUsers();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const URL_GET_USERS = "http://193.32.178.174:8080/api/users";
-
-  const fetchUsers = async () => {
-    try {
-      const users = await fetchWithAuth(URL_GET_USERS, {method: 'GET'}, setLogin);
-      setUsers(users);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <main>
-      {users.map((user, id) => {
-        return (
-          <div className="users flex-center" key={id}>
-            <div>username: {user.username},</div>
-            <div>email: {user.email},</div>
-            <div>role: {user.role}</div>
-          </div>
-        );
-      })}
+    <main className="users flex-center">
+      {isLoading && <Spinner className="spinner-transparent"/>}
+      <div className="users-list">
+        {users.map((user, id) => {
+          return (
+            <div className="users-child flex-center" key={id}>
+              <div className="users-child-fields flex-center">
+                <span>Created: {user.created}</span>
+                <span>Username: {user.username}, </span>
+                <span>Email: {user.email}, </span>
+                <span>Gender: {user.gender}, </span>
+                <span>Birthday: {user.birthday}, </span>
+                <span>Role: {user.role}</span>
+              </div>
+              <div className="users-child-btn">
+                <button onClick={(id) => deleteUser(user.id)}>Delete</button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </main>
   );
-};
+});
 
 export default Users;

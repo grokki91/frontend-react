@@ -1,5 +1,5 @@
 :root {
-  --background-img: url("img/i.jpg");
+  --background-img: url("img/background.jpg");
   --auth-color: #2e2628;
   --nav-color: #4a3a3c;
   --nav-active: #b30200;
@@ -25,6 +25,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--background-img) no-repeat center center;
+  background-color: var(--auth-color);
 }
 
 code {
@@ -98,7 +99,7 @@ button:hover {
 
 .container {
   flex-direction: column;
-  padding: 0 80px;
+  padding: 0 100px;
 }
 
 .auth-wrapper {
@@ -107,7 +108,7 @@ button:hover {
 
 .nav {
   background: var(--nav-color);
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border-radius: var(--border-radius);
   width: 100%;
   margin: 20px 0;
 }
@@ -166,11 +167,13 @@ nav a {
   list-style: none;
   padding: 10px;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 30px;
+  right: 0;
   background: var(--nav-color);
-  min-width: 150px;
-  max-width: 250px;
+}
+
+.nav:has(.dropdown:hover) {
+  border-bottom-right-radius: 0;
 }
 
 .dropdown:hover > .dropdown-content {
@@ -235,7 +238,23 @@ h1 {
   background: inherit;
   flex-direction: column;
   gap: 5px;
-  width: 50%;
+  width: 70%;
+}
+
+.registration {
+  width: 450px;
+  height: 470px;
+}
+
+.react-datepicker__triangle {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.react-datepicker {
+  z-index: 9999;
 }
 
 .message {
@@ -290,9 +309,9 @@ h1 {
 
 .close-btn {
   position: absolute;
-  right: -10px;
+  right: -20px;
   top: -20px;
-  padding: 0;
+  padding: 2px 4px;
   background-color: transparent;
 }
 
@@ -333,38 +352,58 @@ h1 {
   z-index: 999;
 }
 
-.new-character {
+.spinner-transparent {
+  background-color: unset;
+}
+
+main {
   flex-direction: column;
   background: var(--auth-color);
-  width: 80%;
+  width: 50%;
   height: 80vh;
   border-radius: var(--border-radius);
   padding: 20px;
 }
 
-.new-character input {
+.inputs label {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.inputs label span {
+  width: 30%;
+  text-align: right;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+main input {
   padding: 12px 20px;
   width: 100%;
 }
 
-.alignment {
+.selection-group {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   width: 100%;
   margin-bottom: 10px;
   text-align: center;
+  align-items: center;
+  font-weight: bold;
 }
 
-.alignment-childes {
+.selection-group-childes {
   justify-content: space-around;
-  width: 100%;
   margin-top: 10px;
+  margin-left: 10px;
 }
 
-.alignment label {
+.selection-group label {
   display: flex;
   align-items: center;
+  margin-right: 10px;
 }
 
 input[type="radio"] {
@@ -386,9 +425,46 @@ input[type="radio"]:checked {
 }
 
 .users {
+  overflow: hidden;
+}
+
+.users-list {
+  overflow-y: auto;
+  max-height: 100%;
+  /* padding-right: 10px; */
+}
+
+/* .users-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.users-list::-webkit-scrollbar-thumb {
+  background-color: var(--button-color);
+  border-radius: 4px;
+}
+
+.users-list::-webkit-scrollbar-track {
+  background: #2e2628;
+  border-radius: 4px;
+}  */
+
+.users-child {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
   padding: 10px 20px;
   background: var(--auth-color);
   border-radius: var(--border-radius);
+  margin-bottom: 10px;
+}
+
+.users-child-fields {
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.users-child button {
+  margin: 0;
 }
 
 @keyframes spin {
@@ -425,6 +501,11 @@ input[type="radio"]:checked {
     transform: none; /* Отмена центрирования */
     max-width: none; /* Снимаем ограничение по ширине */
   }
+
+  main {
+    width: 60%;
+  }
+  
 }
 
 @media (max-width: 768px) {

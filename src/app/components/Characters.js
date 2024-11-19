@@ -1,17 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import Popup from "./Popup";
-import fetchWithAuth from "../utils/fetchWithAuth";
-import Spinner from "./Spinner";
+import generalStore from "../store/GeneralStore";
+import { observer } from "mobx-react-lite";
+import characterStore from "../store/CharacterStore";
 
-const Characters = ({setLogin, isLoading, setLoading, deleteCharacter}) => {
-  const [characters, setCharacters] = useState([])
-  const [errMessage, setErrMessage] = useState('')
+const Characters = observer(() => {
+  const {messageError} = generalStore;
+  const {characters, getCharacters, deleteCharacter} = characterStore;
   const [currentCharacter, setCurrentCharacter] = useState(false)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const popupRef = useRef(null);
   
   useEffect(() => {
-    fetchCharacters()
+    generalStore.setMessageError("");
+    getCharacters()
 
     if (isPopupOpen) {
       document.addEventListener('mousedown', handleClickOutside)
@@ -25,10 +27,8 @@ const Characters = ({setLogin, isLoading, setLoading, deleteCharacter}) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPopupOpen])
 
-  const URL_CHARACTERS = 'http://193.32.178.174:8080/api/characters'
-
-  const handlePopupOpened = (film) => {
-    setCurrentCharacter(film)
+  const handlePopupOpened = (character) => {
+    setCurrentCharacter(character)
     setIsPopupOpen(true)
   }
 
@@ -43,23 +43,11 @@ const Characters = ({setLogin, isLoading, setLoading, deleteCharacter}) => {
     }
   }
 
-  const fetchCharacters = async () => {
-    try {
-      const characters = await fetchWithAuth(URL_CHARACTERS, {method: 'GET'}, setLogin);
-      setCharacters(characters)
-    } catch (error) {
-      setErrMessage(error.toString())
-    } finally {
-      setLoading(false)
-    }
-  }
-
 
   return (
-    <main className="characters flex-center">
-      {isLoading && <Spinner />}
+    <div className="characters flex-center">
       {
-        errMessage || characters.map((character, id) => {
+        messageError || characters.map((character, id) => {
           return (
             <div key={id} className="character flex-center">
               <div className="character-field">Alias: {character.alias}</div>
@@ -75,8 +63,8 @@ const Characters = ({setLogin, isLoading, setLoading, deleteCharacter}) => {
         })
       }
       {isPopupOpen && <Popup currentCharacter={currentCharacter} handleClosed={handlePopupClosed} popupRef={popupRef} deleteCharacter={deleteCharacter}/>}
-    </main>
+    </div>
   )
-};
+});
 
 export default Characters;

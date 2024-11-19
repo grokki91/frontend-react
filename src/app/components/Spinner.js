@@ -1,8 +1,8 @@
 import React from "react";
 
-const Spinner = () => {
+const Spinner = ({className}) => {
   return (
-    <div className="spinner-overlay flex-center">
+    <div className={`spinner-overlay flex-center ${className}`}>
       <div className="spinner"></div>
     </div>
   );

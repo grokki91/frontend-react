@@ -1,15 +1,13 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
+import characterStore from '../store/CharacterStore';
 
-const Character = ({currentCharacter={}, handleClosed, popupRef, remove}) => {
-    let URL_DELETE = 'http://193.32.178.174:8080/api/characters/'
-
-    if (currentCharacter && currentCharacter.id) {
-        URL_DELETE += currentCharacter.id
-    }
+const Character = observer(({currentCharacter={}, handleClosed, popupRef, remove}) => {
+    const {deleteCharacter} = characterStore;
 
     const handleRemove = async () => {
         try {
-            await remove(URL_DELETE);
+            await deleteCharacter(currentCharacter.id);
             handleClosed()
         } catch (error) {
             console.log(error);
@@ -38,6 +36,6 @@ const Character = ({currentCharacter={}, handleClosed, popupRef, remove}) => {
             <button className='popup-btn' onClick={() =>handleRemove()}>Delete</button>
         </div>
     );
-}
+});
 
 export default Character;
