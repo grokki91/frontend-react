@@ -1,16 +1,18 @@
 import React from 'react';
 import Character from './Character';
+import { observer } from 'mobx-react-lite';
 
-const Popup = ({currentCharacter, handleClosed, popupRef, message, deleteCharacter}) => {
+const Popup = observer(({popupRef, message}) => {
+
     return (
         <div className='popup-overlay flex-center'>
             {
                 message ?
                 <div className="popup">{message}</div> :
-                <Character currentCharacter={currentCharacter} handleClosed={handleClosed} popupRef={popupRef} remove={deleteCharacter}/>
+                <Character popupRef={popupRef}/>
             }
         </div>
     );
-}
+});
 
 export default Popup;

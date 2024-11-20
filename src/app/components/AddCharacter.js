@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
 import { observer } from "mobx-react-lite";
 import generalStore from "../store/GeneralStore";
 import characterStore from "../store/CharacterStore";
+import popupStore from "../store/PopupStore";
 
 const AddCharacter = observer(() => {
   const {messageSuccess, messageError} = generalStore;
   const {alignment, handleAlignmentChange, inputStore, addCharacter, handleAgeChange} = characterStore;
   const {handleChange, getValue} = inputStore;
-  const [isPopupVissible, setPopupVissible] = useState(false);
+  const {isPopupOpened} = popupStore;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      popupStore.setPopupOpened(false);
+    }
+  }, [])
 
   return (
     <main className="new-character flex-center">
@@ -29,8 +36,8 @@ const AddCharacter = observer(() => {
         <input type="text" placeholder="Team" value={getValue("team")} onChange={handleChange} name="team" />
         <div className="message">{messageError}</div>
       </div>
-      <button onClick={() => addCharacter(setPopupVissible, navigate)}>Add</button>
-      {isPopupVissible && <Popup message={messageSuccess} />}
+      <button onClick={() => addCharacter(navigate)}>Add</button>
+      {isPopupOpened && <Popup message={messageSuccess} />}
     </main>
   );
 });

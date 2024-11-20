@@ -28,10 +28,8 @@ const HomePage = observer(() => {
     if (token) {
       try {
         const decodeToken = jwtDecode(token);
-        console.log(decodeToken);
         setUserInfo(decodeToken);
       } catch (error) {
-        console.error("Invalid token");
         handleLogout(navigate);
       }
     }

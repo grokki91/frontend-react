@@ -24,9 +24,9 @@ class InputStore {
   };
   
   resetState = () => {
-    Object.keys(this.state).forEach((key) => {
-        this.state[key] = "";
-    })
+    for (let key in this.state) {
+      this.state[key] = "";
+    }
   }
 
   toggleAuth = () => {

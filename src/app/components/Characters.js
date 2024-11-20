@@ -1,48 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Popup from "./Popup";
 import generalStore from "../store/GeneralStore";
 import { observer } from "mobx-react-lite";
 import characterStore from "../store/CharacterStore";
+import popupStore from "../store/PopupStore";
 
 const Characters = observer(() => {
   const {messageError} = generalStore;
-  const {characters, getCharacters, deleteCharacter} = characterStore;
-  const [currentCharacter, setCurrentCharacter] = useState(false)
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const {characters, currentCharacter, getCharacters} = characterStore;
+  const {isPopupOpened, handlePopupOpen, handleClickOutside} = popupStore;
   const popupRef = useRef(null);
   
   useEffect(() => {
     generalStore.setMessageError("");
     getCharacters()
 
-    if (isPopupOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
+    const handlePopupOutsideClick = (event) => {
+      handleClickOutside(event, popupRef);
+    };
+  
+
+    if (isPopupOpened) {
+      document.addEventListener('mousedown', handlePopupOutsideClick)
     } else {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mousedown', handlePopupOutsideClick)
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mousedown', handlePopupOutsideClick)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPopupOpen])
-
-  const handlePopupOpened = (character) => {
-    setCurrentCharacter(character)
-    setIsPopupOpen(true)
-  }
-
-  const handlePopupClosed = () => {
-    setCurrentCharacter(null)
-    setIsPopupOpen(false)
-  }
-
-  const handleClickOutside = (event) => {
-    if (popupRef.current && !popupRef.current.contains(event.target)) {
-      handlePopupClosed()
-    }
-  }
-
+  }, [isPopupOpened, getCharacters])
 
   return (
     <div className="characters flex-center">
@@ -57,12 +45,12 @@ const Characters = observer(() => {
               <div className="character-field">Abilities: {character.abilities}</div>
               <div className="character-field">Age: {character.age}</div>
               <div className="character-field">Team: {character.team}</div> */}
-              <button className="info-btn" onClick={() => handlePopupOpened(character)}>View</button>
+              <button className="info-btn" onClick={() => handlePopupOpen(character)}>View</button>
             </div>
           );
         })
       }
-      {isPopupOpen && <Popup currentCharacter={currentCharacter} handleClosed={handlePopupClosed} popupRef={popupRef} deleteCharacter={deleteCharacter}/>}
+      {isPopupOpened && currentCharacter && <Popup currentCharacter={currentCharacter} popupRef={popupRef} />}
     </div>
   )
 });

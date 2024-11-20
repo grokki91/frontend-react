@@ -46,33 +46,6 @@ class GeneralStore {
       this.setLogin(true);
     }
   }
-
-  fetchAuthRequest = async (url, user) => {
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    };
-
-    try {
-      this.setLoading(true);
-      const response = await fetch(url, options);
-      const result = await response.json();
-
-      if (response.ok) {
-        this.setMessageError("");
-        this.setToken(result.token);
-        localStorage.setItem("token", result.token);
-        this.setLogin(true);
-      } else {
-        this.setMessageError(result.MessageError);
-      }
-    } catch (error) {
-      this.setMessageError(error.toString());
-    } finally {
-      this.setLoading(false);
-    }
-  };
 }
 
 const generalStore = new GeneralStore();

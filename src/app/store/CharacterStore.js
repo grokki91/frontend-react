@@ -2,12 +2,14 @@ import { makeAutoObservable } from "mobx";
 import InputStore from "./InputStore";
 import generalStore from "./GeneralStore";
 import fetchWithAuth from "../utils/fetchWithAuth";
+import popupStore from "./PopupStore";
 
 class CharacterStore {
   URL_CHARACTERS = 'http://193.32.178.174:8080/api/characters'
   URL_ADD = "http://193.32.178.174:8080/api/characters/add";
   URL_DELETE = "http://193.32.178.174:8080/api/characters/";
   characters = [];
+  currentCharacter = null;
   alignment = "good";
 
   inputStore = new InputStore({
@@ -29,12 +31,17 @@ class CharacterStore {
     this.characters = data;
   }
 
+  setCurrentCharacter = (currentCharacter) => {
+    this.currentCharacter = currentCharacter;
+  }
+
   setAlignment(alignment) {
     this.alignment = alignment;
   }
 
-  resetCharacter = () => {
+  resetCharacter(){
     this.inputStore.resetState();
+    this.inputStore.setState("alignment", "good");
   };
 
   checkFields = () => {
@@ -71,7 +78,7 @@ class CharacterStore {
     } 
   }
 
-  addCharacter = async (showPopup, navigate) => {
+  addCharacter = async (navigate) => {
     const options = {
       method: "POST",
       body: JSON.stringify(this.inputStore.state),
@@ -84,19 +91,19 @@ class CharacterStore {
 
     try {
       const response = await fetchWithAuth(this.URL_ADD, options, generalStore.setLogin);
-
       if (response.Status === "Success") {
+        popupStore.setPopupOpened(true);
         generalStore.setMessageError("");
         generalStore.setMessageSuccesss("Character added successfully!");
-        showPopup(true);
         setTimeout(() => {
           navigate("/");
           this.resetCharacter();
+          this.getCharacters();
         }, 3000);
-      }
+      } 
     } catch (error) {
       generalStore.setMessageError(error.toString());
-    }
+    } 
   };
 
   deleteCharacter = async (id) => {
@@ -107,6 +114,7 @@ class CharacterStore {
 
     try {
       await fetchWithAuth(url, options, this.setLogin);
+      this.setCharacters(this.characters.filter(character => character.id !== id));
     } catch (error) {
       generalStore.setMessageError(error.toString());
     }
