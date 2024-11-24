@@ -1,49 +1,71 @@
-import React, { useEffect } from 'react';
-import UserStore from '../store/UserStore';
+import React, { useEffect, useState } from 'react';
 import userStore from '../store/UserStore';
-import { jwtDecode } from 'jwt-decode';
 import { observer } from 'mobx-react-lite';
+import { jwtDecode } from 'jwt-decode';
 
 const User = observer(() => {
-    const {inputStore, getUser} = userStore;
-    const {getValue, handleChange, setState} = inputStore;
+  const { inputStore, getUser, updateUser } = userStore;
+  const { getValue, handleChange, setState } = inputStore;
+  const [editField, setEditField] = useState(null);
+  
+  const token = localStorage.getItem("token");
+  const userToken = jwtDecode(token);
 
-    const token = localStorage.getItem("token");
-    const userToken = jwtDecode(token);
+  useEffect(() => {
+    getUser(userToken.id).then((user) => {
+      if (user) {
+        setState("username", user.username);
+        setState("email", user.email);
+        setState("birthday", user.birthday);
+      }
+    });
+  }, []);
 
-    useEffect( () => {
-        getUser(userToken.id).then(user => {
-          if (user) {
-            setState("username", user.username);
-            setState("email", user.email);
-            setState("birthday", user.birthday);
-          }
-        });
-    }, [])
+  const handleSave = async (field) => {
+    const updatedField = { [field]: getValue(field) };
+
+    try {
+      await updateUser(userToken.id, updatedField); 
+      setEditField(null); 
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+
+  const renderField = (label, fieldName) => {
+    const isEditing = editField === fieldName;
 
     return (
-        <main className='flex-center'>
-          <div className="character-field">
-            <label htmlFor="alias">Username:</label>
-            <input id="alias" type="text" value={getValue("username")} onChange={handleChange} name="username"/>
-          </div>
-
-          <div className="character-field">
-            <label htmlFor="full_name">Email:</label>
-            <input id="full_name" type="text" value={getValue("email")} onChange={handleChange} name="email"/>
-          </div>
-
-          <div className="character-field">
-            <label htmlFor="full_name">Birthday:</label>
-            <input id="full_name" type="text" value={getValue("birthday")} onChange={handleChange} name="birthday"/>
-          </div>
-
-            <div>
-                Change icon
-            </div>
-            <span onClick={() => UserStore.setlogin()}>fff</span>
-        </main>
+      <div className="character-field">
+        <label>{label}:</label>
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              value={getValue(fieldName)}
+              onChange={handleChange}
+              name={fieldName}
+            />
+            <button onClick={() => handleSave(fieldName)}>Save</button>
+            <button onClick={() => setEditField(null)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <span>{getValue(fieldName)}</span>
+            <button onClick={() => setEditField(fieldName)}>Edit</button>
+          </>
+        )}
+      </div>
     );
+  };
+
+  return (
+    <main className="flex-center">
+      {renderField("Username", "username")}
+      {renderField("Email", "email")}
+      {renderField("Birthday", "birthday")}
+    </main>
+  );
 });
 
 export default User;

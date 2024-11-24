@@ -1,12 +1,12 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 import generalStore from "./GeneralStore";
 import messageStore from "./MessageStore";
 
 class InputStore {
-  state = {};
+  state = observable({});
 
   constructor(state = {}) {
-    this.state = state;
+    Object.assign(this.state, state);
     makeAutoObservable(this);
   }
 

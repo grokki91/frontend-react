@@ -133,10 +133,10 @@ class UserStore {
     }
   }
 
-  updateUser = async (id) => {
+  updateUser = async (id, updatedField) => {
     const options = {
       method: "PATCH",
-      body: JSON.stringify(this.inputStore.state)
+      body: JSON.stringify(updatedField)
     };
 
     const url = this.URL_GET_USERS + "/" + id;

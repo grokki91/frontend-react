@@ -5,6 +5,7 @@ import popupStore from '../store/PopupStore';
 import { observer } from 'mobx-react-lite';
 import messageStore from '../store/MessageStore';
 import Spinner from './Spinner';
+import Input from './Input';
 
 const EditCharacter = observer(() => {
   const {setEditing} = generalStore;
@@ -53,16 +54,8 @@ const EditCharacter = observer(() => {
       <>
         <Spinner />
         <div className="popup edit-character" ref={popupRef}>
-
-          <div className="character-field">
-            <label htmlFor="alias">Alias:</label>
-            <input id="alias" type="text" value={getValue("alias")} onChange={handleChange} name="alias"/>
-          </div>
-
-          <div className="character-field">
-            <label htmlFor="full_name">Full name:</label>
-            <input id="full_name" type="text" value={getValue("fullname")} onChange={handleChange} name="fullname"/>
-          </div>
+          <Input getValue={getValue} name="alias" handleChange={handleChange}/>
+          <Input getValue={getValue} name="fullname" handleChange={handleChange}/>
 
           <div className="character-field">
             <label htmlFor="alignment">Alignment:</label>
@@ -72,20 +65,9 @@ const EditCharacter = observer(() => {
             </select>
           </div>
 
-          <div className="character-field">
-            <label htmlFor="abilities">Abilities:</label>
-            <textarea id="abilities" value={getValue("abilities")} onChange={handleChange} name="abilities" />
-          </div>
-
-          <div className="character-field">
-            <label htmlFor="age">Age:</label>
-            <input id="age" type="text" value={getValue("age")} onChange={handleAgeChange} name="age"/>
-          </div>
-
-          <div className="character-field">
-            <label htmlFor="team">Team:</label>
-            <input id="team" type="text" value={getValue("team")} onChange={handleChange} name="team"/>
-          </div>
+          <Input getValue={getValue} name="abilities" handleChange={handleChange}/>
+          <Input getValue={getValue} name="age" handleChange={handleChange}/>
+          <Input getValue={getValue} name="team" handleChange={handleChange}/>
 
           <div className="message">{formErrorMessage}</div>
 
