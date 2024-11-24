@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import generalStore from "./GeneralStore";
+import messageStore from "./MessageStore";
 
 class InputStore {
   state = {};
@@ -14,7 +15,7 @@ class InputStore {
   }
 
   handleChange = (e) => {
-    generalStore.setMessageError("");
+    messageStore.setFormErrorMessage("");
     const { name, value } = e.target;
     this.state[name] = value;
   };
@@ -32,7 +33,7 @@ class InputStore {
   toggleAuth = () => {
     generalStore.setSignUp();
     this.resetState();
-    generalStore.setMessageError("");
+    messageStore.setFormErrorMessage("");
   };
 }
 

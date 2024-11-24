@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
 import { observer } from "mobx-react-lite";
-import generalStore from "../store/GeneralStore";
 import characterStore from "../store/CharacterStore";
 import popupStore from "../store/PopupStore";
+import messageStore from "../store/MessageStore";
 
 const AddCharacter = observer(() => {
-  const {messageSuccess, messageError} = generalStore;
-  const {alignment, handleAlignmentChange, inputStore, addCharacter, handleAgeChange} = characterStore;
+  const {formErrorMessage, formSuccessMessage, setFormErrorMessage} = messageStore;
+  const {alignment, handleAlignmentChange, inputStore, addCharacter, handleAgeChange, resetCharacter} = characterStore;
   const {handleChange, getValue} = inputStore;
-  const {isPopupOpened} = popupStore;
+  const {isPopupOpened, setPopupOpened} = popupStore;
   const navigate = useNavigate();
 
   useEffect(() => {
+    resetCharacter();
+    setFormErrorMessage("");
     return () => {
-      popupStore.setPopupOpened(false);
+      setPopupOpened(false);
     }
   }, [])
 
@@ -34,10 +36,10 @@ const AddCharacter = observer(() => {
         <input type="text" placeholder="Abilities" value={getValue("abilities")} onChange={handleChange} name="abilities" />
         <input type="text" placeholder="Age" value={getValue("age")} onChange={(e) => handleAgeChange(e)} name="age" />
         <input type="text" placeholder="Team" value={getValue("team")} onChange={handleChange} name="team" />
-        <div className="message">{messageError}</div>
+        <div className="message">{formErrorMessage}</div>
       </div>
       <button onClick={() => addCharacter(navigate)}>Add</button>
-      {isPopupOpened && <Popup message={messageSuccess} />}
+      {isPopupOpened && <Popup message={formSuccessMessage} />}
     </main>
   );
 });

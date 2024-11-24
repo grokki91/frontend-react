@@ -6,7 +6,6 @@ import { observer } from "mobx-react-lite";
 
 const Users = observer(() => {
   const {users, getUsers, deleteUser} = userStore;
-  const {isLoading} = generalStore;
 
   useEffect(() => {
     getUsers();
@@ -15,7 +14,7 @@ const Users = observer(() => {
 
   return (
     <main className="users flex-center">
-      {isLoading && <Spinner className="spinner-transparent"/>}
+      <Spinner className="spinner-transparent"/>
       <div className="users-list">
         {users.map((user, id) => {
           return (

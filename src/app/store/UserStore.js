@@ -2,13 +2,14 @@ import { makeAutoObservable } from "mobx";
 import InputStore from "./InputStore";
 import generalStore from "./GeneralStore";
 import fetchWithAuth from "../utils/fetchWithAuth";
+import messageStore from "./MessageStore";
 
 class UserStore {
   URL_LOGIN = "http://193.32.178.174:8080/login";
   URL_REGISTRATION = "http://193.32.178.174:8080/signup";
   URL_GET_USERS = "http://193.32.178.174:8080/api/users";
-  
   users = [];
+  currentUser = null;
   gender = "";
 
   inputStore = new InputStore({
@@ -28,6 +29,10 @@ class UserStore {
 
   setUsers(data) {
     this.users = data;
+  }
+
+  setCurrentUser = (currentUser) => {
+    this.currentUser = currentUser;
   }
 
   setGender(gender) {
@@ -56,7 +61,7 @@ class UserStore {
 
   fetchAuth = async (url, fields) => {
     if (this.checkFields(fields)) {
-      generalStore.setMessageError("There are empty fields");
+      messageStore.setFormErrorMessage("There are empty fields");
       return;
     }
 
@@ -72,16 +77,16 @@ class UserStore {
       const result = await response.json();
 
       if (response.ok) {
-        generalStore.setMessageError("");
+        messageStore.setFormErrorMessage("");
         generalStore.setToken(result.token);
         localStorage.setItem("token", result.token);
         generalStore.setLogin(true);
         this.inputStore.resetState();
       } else {
-        generalStore.setMessageError(result.Message);
+        messageStore.setFormErrorMessage(result.Message);
       }
     } catch (error) {
-      generalStore.setMessageError(error.toString());
+      messageStore.setFormErrorMessage(error.toString());
     } finally {
       generalStore.setLoading(false);
     }
@@ -96,12 +101,14 @@ class UserStore {
   }
 
   getUsers = async () => {
+    if (this.users.length > 0) return;
+
     try {
       generalStore.setLoading(true);
       const response = await fetchWithAuth(this.URL_GET_USERS, {method: 'GET'}, generalStore.setLogin);
       this.setUsers(response);
     } catch (error) {
-      generalStore.setMessageError(error.toString());
+      messageStore.setGeneralErrorMessage(error.toString());
     } finally {
       generalStore.setLoading(false);
     }
@@ -112,9 +119,40 @@ class UserStore {
       await fetchWithAuth(this.URL_GET_USERS + '/' + id, {method: 'DELETE'}, generalStore.setLogin);
       await this.getUsers();
     } catch (error) {
-      generalStore.setMessageError(error.toString());
+      messageStore.setGeneralErrorMessage(error.toString());
     }
   };
+
+  getUser = async (id) => {
+    try {
+      const response = await fetchWithAuth(this.URL_GET_USERS + '/' + id, generalStore.setLogin);
+      this.setCurrentUser(response);
+      return this.currentUser;
+    } catch (error) {
+      messageStore.setGeneralErrorMessage(error.toString());
+    }
+  }
+
+  updateUser = async (id) => {
+    const options = {
+      method: "PATCH",
+      body: JSON.stringify(this.inputStore.state)
+    };
+
+    const url = this.URL_GET_USERS + "/" + id;
+
+    try {
+      generalStore.setLoading(true);
+      const response = await fetchWithAuth(url, options, this.setLogin);
+      if (response.Status === "Success") {
+        generalStore.setEditing(false);
+      } 
+    } catch (error) {
+      messageStore.setFormErrorMessage(error.toString());
+    } finally {
+      generalStore.setLoading(false);
+    }
+  }
 }
 
 const userStore = new UserStore();

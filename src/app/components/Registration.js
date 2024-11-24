@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import userStore from "../store/UserStore";
-import generalStore from "../store/GeneralStore";
+import messageStore from "../store/MessageStore";
 
 const Registration = observer(() => {
   const {gender, handleGenderChange, registration, inputStore} = userStore;
   const {getValue, handleChange, toggleAuth} = inputStore;
-  const {messageError} = generalStore;
+  const {formErrorMessage} = messageStore;
 
   return (
     <>
@@ -22,7 +22,7 @@ const Registration = observer(() => {
             </div>
           </div>
           <input mask="9999-99-99" type="date" placeholder="YYYY-MM-DD" value={getValue("birthday")} onChange={handleChange} name="birthday"/>
-          <div className="message">{messageError}</div>
+          <div className="message">{formErrorMessage}</div>
         </div>
         <button onClick={() => registration()}>Sign Up</button>
         <div className="auth-suggest">

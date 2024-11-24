@@ -2,11 +2,10 @@ import { makeAutoObservable } from "mobx";
 
 class GeneralStore {
   token = "";
-  messageError = "";
-  messageSuccess = "";
   isLogin = false;
   isLoading = false;
   isSignUp = false;
+  isEditing = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -16,14 +15,6 @@ class GeneralStore {
   setToken = (token) => {
     this.token = token;
     localStorage.setItem("token", token);
-  }
-
-  setMessageError = (messageError) => {
-    this.messageError = messageError;
-  }
-
-  setMessageSuccesss = (messageSuccess) => {
-    this.messageSuccess = messageSuccess;
   }
 
   setLogin = (isLogin) => {
@@ -38,6 +29,10 @@ class GeneralStore {
     this.isSignUp = !this.isSignUp;
   }
 
+  setEditing = (isEditing) => {
+    this.isEditing = isEditing;
+  }
+
   checkLogin = () => {
     let tokenStorage = localStorage.getItem("token");
 
@@ -45,7 +40,7 @@ class GeneralStore {
       this.setToken(tokenStorage);
       this.setLogin(true);
     }
-  }
+  } 
 }
 
 const generalStore = new GeneralStore();

@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import React, { useState } from 'react';
+import React from 'react';
 import characterStore from '../store/CharacterStore';
 import EditCharacter from './EditCharacter';
 import popupStore from '../store/PopupStore';
+import generalStore from '../store/GeneralStore';
 
 const Character = observer(({popupRef}) => {
-    const [isEditing, setIsEditing] = useState(false);
+    const {isEditing, setEditing} = generalStore;
     const {currentCharacter, deleteCharacter} = characterStore;
     const {handlePopupClose} = popupStore;
 
@@ -14,12 +15,8 @@ const Character = observer(({popupRef}) => {
         handlePopupClose()
     }
 
-    const handleEdit = async () => {
-        try {
-            handlePopupClose()
-        } catch (error) {
-            console.log(error);
-        }
+    const handleEdit = () => {
+        setEditing(true);
     }
 
     return (
@@ -37,8 +34,8 @@ const Character = observer(({popupRef}) => {
                         <div className="character-field">Team: {currentCharacter.team}</div>
 
                         <button className='close-btn' onClick={() => handlePopupClose()}>&#10006;</button>
-                        <button className='popup-btn' onClick={() =>handleEdit()}>Edit</button>
-                        <button className='popup-btn' onClick={() =>handleRemove()}>Delete</button>
+                        <button className='popup-btn' onClick={() => handleEdit()}>Edit</button>
+                        <button className='popup-btn' onClick={() => handleRemove()}>Delete</button>
                     </div>
                 )
             }

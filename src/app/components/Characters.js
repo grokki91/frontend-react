@@ -1,19 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import Popup from "./Popup";
-import generalStore from "../store/GeneralStore";
 import { observer } from "mobx-react-lite";
 import characterStore from "../store/CharacterStore";
 import popupStore from "../store/PopupStore";
+import messageStore from "../store/MessageStore";
+import Spinner from "./Spinner";
+import generalStore from "../store/GeneralStore";
 
 const Characters = observer(() => {
-  const {messageError} = generalStore;
+  const {generalErrorMessage, setGeneralErrorMessage} = messageStore;
   const {characters, currentCharacter, getCharacters} = characterStore;
   const {isPopupOpened, handlePopupOpen, handleClickOutside} = popupStore;
+  const {isLoading} = generalStore;
   const popupRef = useRef(null);
   
   useEffect(() => {
-    generalStore.setMessageError("");
-    getCharacters()
+    setGeneralErrorMessage("");
+    getCharacters();
 
     const handlePopupOutsideClick = (event) => {
       handleClickOutside(event, popupRef);
@@ -34,8 +37,9 @@ const Characters = observer(() => {
 
   return (
     <div className="characters flex-center">
+      <Spinner className="spinner-transparent"/>
       {
-        messageError || characters.map((character, id) => {
+        generalErrorMessage || characters.map((character, id) => {
           return (
             <div key={id} className="character flex-center">
               <div className="character-field">Alias: {character.alias}</div>

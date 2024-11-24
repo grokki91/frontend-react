@@ -3,6 +3,7 @@ import InputStore from "./InputStore";
 import generalStore from "./GeneralStore";
 import fetchWithAuth from "../utils/fetchWithAuth";
 import popupStore from "./PopupStore";
+import messageStore from "./MessageStore";
 
 class CharacterStore {
   URL_CHARACTERS = 'http://193.32.178.174:8080/api/characters'
@@ -39,7 +40,7 @@ class CharacterStore {
     this.alignment = alignment;
   }
 
-  resetCharacter(){
+  resetCharacter = () => {
     this.inputStore.resetState();
     this.inputStore.setState("alignment", "good");
   };
@@ -56,10 +57,10 @@ class CharacterStore {
     const isNumber = /^\d+(\.\d+)?$/.test(value);
 
     if (isNumber || value === "") {
-      generalStore.setMessageError("");
+      messageStore.setFormErrorMessage("");
       this.inputStore.handleChange(e);
     } else {
-      generalStore.setMessageError("Only numbers are allowed in the Age field");
+      messageStore.setFormErrorMessage("Only numbers are allowed in the Age field");
     }
   };
 
@@ -71,11 +72,14 @@ class CharacterStore {
 
   getCharacters = async () => {
     try {
+      generalStore.setLoading(true);
       const response = await fetchWithAuth(this.URL_CHARACTERS, {method: 'GET'}, generalStore.setLogin);
       this.setCharacters(response)
     } catch (error) {
-      generalStore.setMessageError(error.toString())
-    } 
+      messageStore.setGeneralErrorMessage(error.toString())
+    } finally {
+      generalStore.setLoading(false);
+    }
   }
 
   addCharacter = async (navigate) => {
@@ -85,7 +89,7 @@ class CharacterStore {
     };
 
     if (this.checkFields()) {
-      generalStore.setMessageError("All fields must be filled in");
+      messageStore.setFormErrorMessage("All fields must be filled in");
       return;
     }
 
@@ -93,16 +97,16 @@ class CharacterStore {
       const response = await fetchWithAuth(this.URL_ADD, options, generalStore.setLogin);
       if (response.Status === "Success") {
         popupStore.setPopupOpened(true);
-        generalStore.setMessageError("");
-        generalStore.setMessageSuccesss("Character added successfully!");
+        messageStore.setFormErrorMessage("");
+        messageStore.setFormSuccessMessage("Character added successfully!");
         setTimeout(() => {
           navigate("/");
           this.resetCharacter();
           this.getCharacters();
-        }, 3000);
+        }, 2000);
       } 
     } catch (error) {
-      generalStore.setMessageError(error.toString());
+      messageStore.setFormErrorMessage(error.toString());
     } 
   };
 
@@ -110,14 +114,43 @@ class CharacterStore {
     const options = {
       method: "DELETE",
     };
-    const url = this.URL_DELETE + id;
+    const url = this.URL_CHARACTERS + "/" + id;
 
     try {
       await fetchWithAuth(url, options, this.setLogin);
       this.setCharacters(this.characters.filter(character => character.id !== id));
     } catch (error) {
-      generalStore.setMessageError(error.toString());
+      messageStore.setFormErrorMessage(error.toString());
     }
+  };
+
+  updateCharacter = async (id) => {
+    const options = {
+      method: "PATCH",
+      body: JSON.stringify(this.inputStore.state)
+    };
+
+    const url = this.URL_CHARACTERS + "/" + id;
+
+    try {
+      generalStore.setLoading(true);
+      const response = await fetchWithAuth(url, options, this.setLogin);
+      if (response.Status === "Success") {
+        popupStore.handlePopupClose();
+        popupStore.setPopupOpened(false);
+        generalStore.setEditing(false);
+      } 
+    } catch (error) {
+      messageStore.setFormErrorMessage(error.toString());
+    } finally {
+      generalStore.setLoading(false);
+    }
+  };
+
+  hasChanges = () => {
+    return this.fields.some((field) => 
+      this.inputStore.getValue(field) !== this.currentCharacter[field]
+    );
   };
 }
 

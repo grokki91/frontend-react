@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import userStore from "../store/UserStore";
-import generalStore from "../store/GeneralStore";
+import messageStore from "../store/MessageStore";
 
 const Login = observer(() => {
   const {login, inputStore} = userStore;
   const {getValue, handleChange, toggleAuth} = inputStore;
-  const {messageError} = generalStore;
+  const {formErrorMessage} = messageStore;
 
   return (
     <>
@@ -14,7 +14,7 @@ const Login = observer(() => {
         <div className="inputs flex-center">
           <input type="text" placeholder="Username" value={getValue("username")} onChange={handleChange} name="username" autoFocus/>
           <input type="password" placeholder="Password" value={getValue("password")} onChange={handleChange} name="password"/>
-          <div className="message">{messageError}</div>
+          <div className="message">{formErrorMessage}</div>
         </div>
         <button onClick={() => login()}>Log in</button>
         <div className="auth-suggest">

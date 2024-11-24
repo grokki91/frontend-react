@@ -8,8 +8,8 @@ import AddCharacter from "./AddCharacter";
 import img from '../../img/deadpool.svg';
 import User from "./User";
 import { observer } from "mobx-react-lite";
-import generalStore from "../store/GeneralStore";
 import userStore from "../store/UserStore";
+import messageStore from "../store/MessageStore";
 
 const HomePage = observer(() => {
   const {handleLogout} = userStore;
@@ -17,7 +17,7 @@ const HomePage = observer(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    generalStore.setMessageError("");
+    messageStore.setGeneralErrorMessage("");
     checkRole();
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
