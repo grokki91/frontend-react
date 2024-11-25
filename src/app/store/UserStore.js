@@ -125,11 +125,14 @@ class UserStore {
 
   getUser = async (id) => {
     try {
+      generalStore.setLoading(true);
       const response = await fetchWithAuth(this.URL_GET_USERS + '/' + id, generalStore.setLogin);
       this.setCurrentUser(response);
       return this.currentUser;
     } catch (error) {
       messageStore.setGeneralErrorMessage(error.toString());
+    } finally {
+      generalStore.setLoading(false);
     }
   }
 

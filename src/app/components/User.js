@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import userStore from '../store/UserStore';
 import { observer } from 'mobx-react-lite';
 import { jwtDecode } from 'jwt-decode';
+import generalStore from '../store/GeneralStore';
+import Spinner from "./Spinner";
+import messageStore from '../store/MessageStore';
 
 const User = observer(() => {
-  const { inputStore, getUser, updateUser } = userStore;
+  const { inputStore, getUser, updateUser} = userStore;
   const { getValue, handleChange, setState } = inputStore;
+  const {isLoading} = generalStore;
+  const {formErrorMessage} = messageStore;
   const [editField, setEditField] = useState(null);
   
   const token = localStorage.getItem("token");
@@ -36,23 +41,27 @@ const User = observer(() => {
     const isEditing = editField === fieldName;
 
     return (
-      <div className="character-field">
-        <label>{label}:</label>
+      <div className="character-field flex-center">
         {isEditing ? (
-          <>
+          <div className="user-edit">
             <input
               type="text"
               value={getValue(fieldName)}
               onChange={handleChange}
               name={fieldName}
             />
-            <button onClick={() => handleSave(fieldName)}>Save</button>
-            <button onClick={() => setEditField(null)}>Cancel</button>
-          </>
+            <div className="user-btn flex-center">
+              <button onClick={() => handleSave(fieldName)}>Save</button>
+              <button onClick={() => setEditField(null)}>Cancel</button>
+            </div>
+          </div>
         ) : (
           <>
-            <span>{getValue(fieldName)}</span>
-            <button onClick={() => setEditField(fieldName)}>Edit</button>
+            <div className='user-view'>
+              <div>{label.toUpperCase()}:</div>
+              <div>{getValue(fieldName)}</div>
+            </div>
+            <button onClick={() => setEditField(fieldName)}>Change</button>
           </>
         )}
       </div>
@@ -61,9 +70,16 @@ const User = observer(() => {
 
   return (
     <main className="flex-center">
-      {renderField("Username", "username")}
-      {renderField("Email", "email")}
-      {renderField("Birthday", "birthday")}
+      {
+        isLoading ?
+        <Spinner /> :
+        <div className='flex-center user-wrapper'>
+          {renderField("Password", "password")}
+          {renderField("Email", "email")}
+          {renderField("Birthday", "birthday")}
+          <div className='message'>{formErrorMessage}</div>
+        </div>
+      }
     </main>
   );
 });

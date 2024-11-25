@@ -519,6 +519,40 @@ input[type="radio"]:checked {
   margin: 0;
 }
 
+.user-wrapper {
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 40px;
+  
+  .character-field {
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .user-view div:first-child {
+      font-weight: bold;
+    }
+    .user-edit {
+      width: 100%;
+
+      .user-btn {
+        justify-content: end;
+      }
+      button:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
+  button {
+    padding: 4px 8px;
+    margin: 0;
+  }
+  .message {
+    margin-top: 20px;
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
