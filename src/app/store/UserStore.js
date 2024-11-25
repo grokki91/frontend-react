@@ -8,6 +8,7 @@ class UserStore {
   URL_LOGIN = "http://193.32.178.174:8080/login";
   URL_REGISTRATION = "http://193.32.178.174:8080/signup";
   URL_GET_USERS = "http://193.32.178.174:8080/api/users";
+  URL_CHANGE_PASSWORD = "http://193.32.178.174:8080/api/users/change-password";
   users = [];
   currentUser = null;
   gender = "";
@@ -149,6 +150,39 @@ class UserStore {
       const response = await fetchWithAuth(url, options, this.setLogin);
       if (response.Status === "Success") {
         generalStore.setEditing(false);
+      } 
+    } catch (error) {
+      messageStore.setFormErrorMessage(error.toString());
+    } finally {
+      generalStore.setLoading(false);
+    }
+  }
+
+  changePassword = async (id) => {
+    const body = {
+      password: this.inputStore.getValue("password"),
+      newPassword: this.inputStore.getValue("newPassword"),
+      confirmPassword: this.inputStore.getValue("confirmPassword")
+    }
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(body)
+    };
+
+    if (!body.password || !body.newPassword || !body.confirmPassword) {
+      messageStore.setFormErrorMessage("All password fields are required.");
+      return;
+    }
+
+    const url = this.URL_CHANGE_PASSWORD + "/" + id;
+
+    try {
+      generalStore.setLoading(true);
+      const response = await fetchWithAuth(url, options, this.setLogin);
+      if (response.Status === "Success") {
+        generalStore.setEditing(false);
+        messageStore.setFormSuccessMessage(response.Message);
       } 
     } catch (error) {
       messageStore.setFormErrorMessage(error.toString());

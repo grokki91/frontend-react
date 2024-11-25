@@ -271,6 +271,10 @@ h1 {
   margin-bottom: 10px;
 }
 
+.success {
+  color: green;
+}
+
 .characters {
   gap: 10px;
   flex-wrap: wrap;
@@ -535,6 +539,12 @@ input[type="radio"]:checked {
     }
     .user-edit {
       width: 100%;
+
+      label[for="password"] span {
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
+      }
 
       .user-btn {
         justify-content: end;

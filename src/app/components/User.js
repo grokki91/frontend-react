@@ -7,10 +7,10 @@ import Spinner from "./Spinner";
 import messageStore from '../store/MessageStore';
 
 const User = observer(() => {
-  const { inputStore, getUser, updateUser} = userStore;
+  const { inputStore, getUser, updateUser, changePassword} = userStore;
   const { getValue, handleChange, setState } = inputStore;
   const {isLoading} = generalStore;
-  const {formErrorMessage} = messageStore;
+  const {formErrorMessage, formSuccessMessage} = messageStore;
   const [editField, setEditField] = useState(null);
   
   const token = localStorage.getItem("token");
@@ -19,23 +19,48 @@ const User = observer(() => {
   useEffect(() => {
     getUser(userToken.id).then((user) => {
       if (user) {
-        setState("username", user.username);
+        setState("password", user.password);
         setState("email", user.email);
         setState("birthday", user.birthday);
       }
     });
   }, []);
 
-  const handleSave = async (field) => {
+  const handleSave = (field = "") => {
     const updatedField = { [field]: getValue(field) };
 
     try {
-      await updateUser(userToken.id, updatedField); 
+      if (field === "password") {
+        changePassword(userToken.id);
+        setEditField(null); 
+        return;
+      }
+
+      updateUser(userToken.id, updatedField); 
       setEditField(null); 
     } catch (error) {
       console.error("Error updating user:", error);
     }
   };
+
+  const renderPasswordFields = (fieldName) => {
+    return (
+      <div>
+        <label htmlFor="password">
+          <span>Password:</span>
+          <input type="password" value={getValue(fieldName)} onChange={handleChange} name={fieldName} />
+        </label>
+        <label htmlFor="password">
+          <span>New password:</span>
+          <input type="password" value={getValue("newPassword")} onChange={handleChange} name="newPassword" />
+          </label>
+        <label htmlFor="password">
+          <span>Confirm password:</span>
+          <input type="password" value={getValue("confirmPassword")} onChange={handleChange} name="confirmPassword" />
+        </label>
+      </div>
+    );
+  }
 
   const renderField = (label, fieldName) => {
     const isEditing = editField === fieldName;
@@ -44,12 +69,13 @@ const User = observer(() => {
       <div className="character-field flex-center">
         {isEditing ? (
           <div className="user-edit">
-            <input
-              type="text"
-              value={getValue(fieldName)}
-              onChange={handleChange}
-              name={fieldName}
-            />
+            {
+              fieldName === "password" ?
+              renderPasswordFields(fieldName) :
+              <>
+                <input type="text" value={getValue(fieldName)} onChange={handleChange} name={fieldName} />
+              </>
+            }
             <div className="user-btn flex-center">
               <button onClick={() => handleSave(fieldName)}>Save</button>
               <button onClick={() => setEditField(null)}>Cancel</button>
@@ -59,7 +85,11 @@ const User = observer(() => {
           <>
             <div className='user-view'>
               <div>{label.toUpperCase()}:</div>
-              <div>{getValue(fieldName)}</div>
+              {
+                fieldName !== "password" ?
+                <div>{getValue(fieldName)}</div> :
+                <></>
+              }
             </div>
             <button onClick={() => setEditField(fieldName)}>Change</button>
           </>
@@ -77,6 +107,7 @@ const User = observer(() => {
           {renderField("Password", "password")}
           {renderField("Email", "email")}
           {renderField("Birthday", "birthday")}
+          <div className='message success'>{formSuccessMessage}</div>
           <div className='message'>{formErrorMessage}</div>
         </div>
       }
