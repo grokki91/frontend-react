@@ -7,7 +7,7 @@ import popupStore from "../store/PopupStore";
 import messageStore from "../store/MessageStore";
 
 const AddCharacter = observer(() => {
-  const {formErrorMessage, formSuccessMessage, setFormErrorMessage} = messageStore;
+  const {formErrorMessage, formSuccessMessage, resetMessages} = messageStore;
   const {alignment, handleAlignmentChange, inputStore, addCharacter, handleAgeChange, resetCharacter} = characterStore;
   const {handleChange, getValue} = inputStore;
   const {isPopupOpened, setPopupOpened} = popupStore;
@@ -15,15 +15,16 @@ const AddCharacter = observer(() => {
 
   useEffect(() => {
     resetCharacter();
-    setFormErrorMessage("");
+    resetMessages();
     return () => {
       setPopupOpened(false);
+      resetMessages();
     }
   }, [])
 
   return (
     <main className="new-character flex-center">
-      <h1>Add new character</h1>
+      <h2>New character</h2>
       <div className="inputs flex-center">
         <input type="text" placeholder="Alias" value={getValue("alias")} onChange={handleChange} name="alias" />
         <input type="text" placeholder="Full Name" value={getValue("fullname")} onChange={handleChange} name="fullname" autoFocus />

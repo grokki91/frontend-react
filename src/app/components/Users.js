@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Spinner from "./Spinner";
 import userStore from "../store/UserStore";
-import generalStore from "../store/GeneralStore";
 import { observer } from "mobx-react-lite";
 
 const Users = observer(() => {

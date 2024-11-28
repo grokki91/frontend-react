@@ -10,7 +10,7 @@ const Registration = observer(() => {
   return (
     <>
       <div className="auth flex-center registration">
-        <h1>Sign up</h1>
+        <h2>Sign up</h2>
         <div className="inputs flex-center">
           <input type="text" placeholder="Username" value={getValue("username")} onChange={handleChange} name="username" autoFocus/>
           <input type="text" placeholder="Email" value={getValue("email")} onChange={handleChange} name="email"/>

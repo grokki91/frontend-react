@@ -10,28 +10,24 @@ import User from "./User";
 import { observer } from "mobx-react-lite";
 import userStore from "../store/UserStore";
 import messageStore from "../store/MessageStore";
+import generalStore from "../store/GeneralStore";
 
 const HomePage = observer(() => {
   const {handleLogout} = userStore;
-  const [userInfo, setUserInfo] = useState("");
+  const {getToken} = generalStore;
+  const {resetMessages} = messageStore;
   const navigate = useNavigate();
 
   useEffect(() => {
-    messageStore.setGeneralErrorMessage("");
+    resetMessages();
     checkRole();
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkRole = () => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decodeToken = jwtDecode(token);
-        setUserInfo(decodeToken);
-      } catch (error) {
-        handleLogout(navigate);
-      }
+    if (!getToken()) {
+      handleLogout(navigate);
     }
   };
 
@@ -41,7 +37,7 @@ const HomePage = observer(() => {
         <ul className="nav-list flex-center">
           <li><NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home page</NavLink></li>
           <li><NavLink to="/add" className={({ isActive }) =>(isActive ? " active" : "")}>Add character</NavLink></li>
-          {userInfo.role === "ROLE_ADMIN" && <li><NavLink to="/users" className={({ isActive }) =>(isActive ? " active" : "")}>Users</NavLink></li>}
+          {getToken().role === "ROLE_ADMIN" && <li><NavLink to="/users" className={({ isActive }) =>(isActive ? " active" : "")}>Users</NavLink></li>}
           <li className="dropdown">
             <span><img src={img} alt="Account" stroke="white"/></span>
             <ul className="dropdown-content">

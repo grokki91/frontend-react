@@ -9,7 +9,7 @@ import Input from './Input';
 
 const EditCharacter = observer(() => {
   const {setEditing} = generalStore;
-  const {formErrorMessage, setFormErrorMessage} = messageStore;
+  const {formErrorMessage, setFormErrorMessage, resetMessages} = messageStore;
   const {currentCharacter, inputStore, checkFields, handleAgeChange, handleAlignmentChange, resetCharacter, updateCharacter, hasChanges} = characterStore;
   const {handleChange, getValue, setState} = inputStore;
   const {setPopupOpened, handlePopupClose} = popupStore;
@@ -26,7 +26,7 @@ const EditCharacter = observer(() => {
     }
 
     return () => {
-      setFormErrorMessage("");
+      resetMessages();
     }
   }, [])
 
@@ -65,8 +65,8 @@ const EditCharacter = observer(() => {
             </select>
           </div>
 
-          <Input getValue={getValue} name="abilities" handleChange={handleChange}/>
-          <Input getValue={getValue} name="age" handleChange={handleChange}/>
+          <Input getValue={getValue} name="abilities" handleChange={handleChange} isTextArea={true}/>
+          <Input getValue={getValue} name="age" handleChange={handleAgeChange}/>
           <Input getValue={getValue} name="team" handleChange={handleChange}/>
 
           <div className="message">{formErrorMessage}</div>

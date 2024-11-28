@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { makeAutoObservable } from "mobx";
 
 class GeneralStore {
@@ -6,10 +7,16 @@ class GeneralStore {
   isLoading = false;
   isSignUp = false;
   isEditing = false;
+  editField = null;
 
   constructor() {
     makeAutoObservable(this);
     this.checkLogin();
+  }
+
+  getToken = () => {
+    const token = localStorage.getItem("token");
+    return jwtDecode(token);
   }
 
   setToken = (token) => {
@@ -31,6 +38,10 @@ class GeneralStore {
 
   setEditing = (isEditing) => {
     this.isEditing = isEditing;
+  }
+
+  setEditField = (editField) => {
+    this.editField = editField;
   }
 
   checkLogin = () => {

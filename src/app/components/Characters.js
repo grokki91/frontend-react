@@ -5,17 +5,15 @@ import characterStore from "../store/CharacterStore";
 import popupStore from "../store/PopupStore";
 import messageStore from "../store/MessageStore";
 import Spinner from "./Spinner";
-import generalStore from "../store/GeneralStore";
 
 const Characters = observer(() => {
-  const {generalErrorMessage, setGeneralErrorMessage} = messageStore;
+  const {generalErrorMessage, resetMessages} = messageStore;
   const {characters, currentCharacter, getCharacters} = characterStore;
   const {isPopupOpened, handlePopupOpen, handleClickOutside} = popupStore;
-  const {isLoading} = generalStore;
   const popupRef = useRef(null);
   
   useEffect(() => {
-    setGeneralErrorMessage("");
+    resetMessages();
     getCharacters();
 
     const handlePopupOutsideClick = (event) => {
@@ -43,12 +41,6 @@ const Characters = observer(() => {
           return (
             <div key={id} className="character flex-center">
               <div className="character-field">Alias: {character.alias}</div>
-              {/* <div className="character-field">Full name: {character.full_name}</div>
-              <div className="character-field">Full name: {character.full_name}</div>
-              <div className="character-field">Alignment: {character.alignment}</div>
-              <div className="character-field">Abilities: {character.abilities}</div>
-              <div className="character-field">Age: {character.age}</div>
-              <div className="character-field">Team: {character.team}</div> */}
               <button className="info-btn" onClick={() => handlePopupOpen(character)}>View</button>
             </div>
           );

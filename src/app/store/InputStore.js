@@ -30,6 +30,12 @@ class InputStore {
     }
   }
 
+  resetPasswordState = () => {
+    this.state.password = "";
+    this.state.newPassword = "";
+    this.state.confirmPassword = "";
+  }
+
   toggleAuth = () => {
     generalStore.setSignUp();
     this.resetState();

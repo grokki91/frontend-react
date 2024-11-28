@@ -10,9 +10,7 @@ const Auth = observer(() => {
   return (
     <>
       <Spinner />
-      {
-        !isSignUp ? <Login /> : <Registration />
-      }
+      { !isSignUp ? <Login /> : <Registration /> }
     </>
   );
 });

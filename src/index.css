@@ -14,6 +14,7 @@
 html,
 body {
   height: 100%;
+  font-size: 18px;
 }
 
 body {
@@ -236,9 +237,10 @@ nav a {
   font-weight: bold;
 }
 
-h1 {
+h2 {
   background: inherit;
   margin-bottom: 30px;
+  text-transform: uppercase;
 }
 
 .inputs {
@@ -455,6 +457,7 @@ input[type="radio"]:checked {
     text-align: center;
   }
   label {
+    text-transform: capitalize;
     margin-right: 10px;
   }
   select, option {
@@ -526,8 +529,13 @@ input[type="radio"]:checked {
 .user-wrapper {
   width: 100%;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 10px 40px;
+  justify-content: space-around;
+  padding: 10px 50px;
+  height: 100%;
+
+  .username {
+    font-size: 25px;
+  }
   
   .character-field {
     width: 100%;
@@ -540,7 +548,7 @@ input[type="radio"]:checked {
     .user-edit {
       width: 100%;
 
-      label[for="password"] span {
+      label span {
         display: block;
         text-align: center;
         margin-bottom: 5px;
@@ -592,20 +600,24 @@ input[type="radio"]:checked {
 
 @media (max-width: 1200px) {
   .dropdown-content {
-    left: 0; /* Убираем выравнивание по центру для узких экранов */
-    right: 0; /* Меню растягивается по ширине nav */
-    transform: none; /* Отмена центрирования */
-    max-width: none; /* Снимаем ограничение по ширине */
+    left: 0;
+    right: 0;
+    transform: none;
+    max-width: none;
   }
 
   main {
     width: 60%;
+  }
+
+  .user-wrapper {
+    padding: 10px 40px;
   }
   
 }
 
 @media (max-width: 768px) {
   .dropdown-content {
-    width: 100%; /* Меню будет занимать всю ширину nav */
+    width: 100%;
   }
 }

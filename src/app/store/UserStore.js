@@ -19,6 +19,8 @@ class UserStore {
     email: "",
     gender: "",
     birthday: "",
+    newPassword: "",
+    confirmPassword: ""
   })
 
   loginFields = ["username", "password"];
@@ -80,7 +82,6 @@ class UserStore {
       if (response.ok) {
         messageStore.setFormErrorMessage("");
         generalStore.setToken(result.token);
-        localStorage.setItem("token", result.token);
         generalStore.setLogin(true);
         this.inputStore.resetState();
       } else {
@@ -102,7 +103,7 @@ class UserStore {
   }
 
   getUsers = async () => {
-    if (this.users.length > 0) return;
+    // if (this.users.length > 0) return;
 
     try {
       generalStore.setLoading(true);
@@ -118,7 +119,7 @@ class UserStore {
   deleteUser = async (id) => {
     try {
       await fetchWithAuth(this.URL_GET_USERS + '/' + id, {method: 'DELETE'}, generalStore.setLogin);
-      await this.getUsers();
+      this.getUsers();
     } catch (error) {
       messageStore.setGeneralErrorMessage(error.toString());
     }
@@ -149,7 +150,7 @@ class UserStore {
       generalStore.setLoading(true);
       const response = await fetchWithAuth(url, options, this.setLogin);
       if (response.Status === "Success") {
-        generalStore.setEditing(false);
+        generalStore.setEditField(null);
       } 
     } catch (error) {
       messageStore.setFormErrorMessage(error.toString());
@@ -175,19 +176,35 @@ class UserStore {
       return;
     }
 
+    if (body.newPassword !== body.confirmPassword) {
+      messageStore.setFormErrorMessage("Passwords don't match");
+      return;
+    }
+
     const url = this.URL_CHANGE_PASSWORD + "/" + id;
 
     try {
       generalStore.setLoading(true);
       const response = await fetchWithAuth(url, options, this.setLogin);
       if (response.Status === "Success") {
-        generalStore.setEditing(false);
+        generalStore.setEditField(null);
         messageStore.setFormSuccessMessage(response.Message);
       } 
     } catch (error) {
       messageStore.setFormErrorMessage(error.toString());
     } finally {
       generalStore.setLoading(false);
+    }
+  }
+
+  fetchUser = async () => {
+    const token = generalStore.getToken();
+    const user = await this.getUser(token.id);
+
+    if (user) {
+      this.inputStore.setState("password", user.password);
+      this.inputStore.setState("email", user.email);
+      this.inputStore.setState("birthday", user.birthday);
     }
   }
 }

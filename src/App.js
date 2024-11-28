@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Auth from "./app/components/Auth";
 import HomePage from "./app/components/HomePage";
-import Spinner from "./app/components/Spinner";
 import { observer } from "mobx-react-lite";
 import generalStore from "./app/store/GeneralStore";
 

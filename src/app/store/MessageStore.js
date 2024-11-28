@@ -25,6 +25,13 @@ class MessageStore {
   setFormSuccessMessage = (formSuccessMessage) => {
     this.formSuccessMessage = formSuccessMessage;
   };
+
+  resetMessages = () => {
+    this.setGeneralErrorMessage("");
+    this.setGeneralSuccessMessage("");
+    this.setFormErrorMessage("");
+    this.setFormSuccessMessage("");
+  }
 }
 
 const messageStore = new MessageStore();
