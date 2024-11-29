@@ -19,7 +19,7 @@ const Users = observer(() => {
           return (
             <div className="users-child flex-center" key={id}>
               <div className="users-child-fields flex-center">
-                <div className="field-label">Created: <span className="field-value">{user.created}</span></div> 
+                <div className="field-label">Created: <span className="field-value">{user.created && user.created.slice(0,10)}</span></div> 
                 <div className="field-label">Username: <span className="field-value">{user.username}</span></div> 
                 <div className="field-label">Email: <span className="field-value">{user.email}</span></div> 
                 <div className="field-label">Gender: <span className="field-value">{user.gender}</span></div> 

@@ -4,14 +4,17 @@ import popupStore from '../store/PopupStore';
 import messageStore from '../store/MessageStore';
 
 const Toaster = observer(() => {
-    const {isToasterVisible, setToasterVisible} = popupStore;
+    const {isToasterVisible, setToasterVisible, isFadeOut, setFadeOut} = popupStore;
     const {formSuccessMessage} = messageStore;
 
     useEffect(() => {
         if (isToasterVisible) {
+            setFadeOut(false);
+
             const timer = setTimeout(() => {
+                setFadeOut(true);
                 setToasterVisible(false);
-            }, 2000)
+            }, 3000)
 
             return () => {
                 clearTimeout(timer);
@@ -22,7 +25,7 @@ const Toaster = observer(() => {
     if (!isToasterVisible) return null;
 
     return (
-        <div className='toaster flex-center fade-out'>
+        <div className={`toaster flex-center ${isFadeOut ? 'fade-out' : ''}`}>
             <div className='message success'>{formSuccessMessage}</div>
         </div>
     );

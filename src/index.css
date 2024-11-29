@@ -510,6 +510,7 @@ input[type="radio"]:checked {
     flex-direction: column;
     overflow-y: auto;
     max-height: 100%;
+    width: 100%;
     /* padding-right: 10px; */
   }
 
@@ -614,13 +615,22 @@ input[type="radio"]:checked {
 
 .toaster {
   position: fixed;
-  width: 250px;
-  height: 150px;
+  width: 190px;
+  height: 70px;
   background: var(--auth-color);
   bottom: 50px;
   right: 50px;
   opacity: 1;
   transition: opacity 1s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+  border-radius: var(--border-radius);
+  font-size: 15px;
+}
+
+.fade-out {
+  opacity: 0;
+  visibility: hidden; 
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 }
 
 @keyframes spin {

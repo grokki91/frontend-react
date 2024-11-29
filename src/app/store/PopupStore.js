@@ -4,6 +4,7 @@ import characterStore from "./CharacterStore";
 class PopupStore {
   isPopupOpened = false;
   isToasterVisible = false;
+  isFadeOut = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -16,6 +17,10 @@ class PopupStore {
   setToasterVisible = (isToasterVisible) => {
     this.isToasterVisible = isToasterVisible;
   };
+
+  setFadeOut = (isFadeOut) => {
+    this.isFadeOut = isFadeOut;
+  }
 
   handlePopupOpen = (character) => {
     characterStore.setCurrentCharacter(character);
