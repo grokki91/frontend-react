@@ -152,6 +152,17 @@ class CharacterStore {
       this.inputStore.getValue(field) !== this.currentCharacter[field]
     );
   };
+
+  fetchCharacter = () => {
+    if (this.currentCharacter) {
+      this.inputStore.setState("alias", this.currentCharacter.alias || "");
+      this.inputStore.setState("fullname", this.currentCharacter.fullname || "");
+      this.inputStore.setState("alignment", this.currentCharacter.alignment || "good");
+      this.inputStore.setState("abilities", this.currentCharacter.abilities || "");
+      this.inputStore.setState("age", this.currentCharacter.age || "");
+      this.inputStore.setState("team", this.currentCharacter.team || "");
+    }
+  }
 }
 
 const characterStore = new CharacterStore();

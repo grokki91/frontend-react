@@ -3,6 +3,7 @@ import InputStore from "./InputStore";
 import generalStore from "./GeneralStore";
 import fetchWithAuth from "../utils/fetchWithAuth";
 import messageStore from "./MessageStore";
+import popupStore from "./PopupStore";
 
 class UserStore {
   URL_LOGIN = "http://193.32.178.174:8080/login";
@@ -84,6 +85,7 @@ class UserStore {
         generalStore.setToken(result.token);
         generalStore.setLogin(true);
         this.inputStore.resetState();
+        messageStore.setFormSuccessMessage(result.Message);
       } else {
         messageStore.setFormErrorMessage(result.Message);
       }
@@ -151,6 +153,8 @@ class UserStore {
       const response = await fetchWithAuth(url, options, this.setLogin);
       if (response.Status === "Success") {
         generalStore.setEditField(null);
+        messageStore.setFormSuccessMessage(response.Message);
+        popupStore.setToasterVisible(true);
       } 
     } catch (error) {
       messageStore.setFormErrorMessage(error.toString());
@@ -189,6 +193,7 @@ class UserStore {
       if (response.Status === "Success") {
         generalStore.setEditField(null);
         messageStore.setFormSuccessMessage(response.Message);
+        popupStore.setToasterVisible(true);
       } 
     } catch (error) {
       messageStore.setFormErrorMessage(error.toString());

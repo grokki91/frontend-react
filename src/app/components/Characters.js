@@ -40,7 +40,7 @@ const Characters = observer(() => {
         generalErrorMessage || characters.map((character, id) => {
           return (
             <div key={id} className="character flex-center">
-              <div className="character-field">Alias: {character.alias}</div>
+              <div className="form-field">Alias: {character.alias}</div>
               <button className="info-btn" onClick={() => handlePopupOpen(character)}>View</button>
             </div>
           );

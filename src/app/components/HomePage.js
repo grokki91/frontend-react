@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import Users from "./Users";
 import NotFoundPage from "./NotFoundPage";
-import { jwtDecode } from "jwt-decode";
 import Characters from "./Characters";
 import AddCharacter from "./AddCharacter";
 import img from '../../img/deadpool.svg';

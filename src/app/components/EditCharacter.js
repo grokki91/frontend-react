@@ -10,24 +10,21 @@ import Input from './Input';
 const EditCharacter = observer(() => {
   const {setEditing} = generalStore;
   const {formErrorMessage, setFormErrorMessage, resetMessages} = messageStore;
-  const {currentCharacter, inputStore, checkFields, handleAgeChange, handleAlignmentChange, resetCharacter, updateCharacter, hasChanges} = characterStore;
-  const {handleChange, getValue, setState} = inputStore;
+  const {
+    currentCharacter, inputStore, checkFields, handleAgeChange, handleAlignmentChange, 
+    resetCharacter, updateCharacter, hasChanges, fetchCharacter
+  } = characterStore;
+  const {handleChange, getValue} = inputStore;
   const {setPopupOpened, handlePopupClose} = popupStore;
   const popupRef = useRef(null);
 
   useEffect(() => {
-    if (currentCharacter) {
-      setState("alias", currentCharacter.alias || "");
-      setState("fullname", currentCharacter.fullname || "");
-      setState("alignment", currentCharacter.alignment || "good");
-      setState("abilities", currentCharacter.abilities || "");
-      setState("age", currentCharacter.age || "");
-      setState("team", currentCharacter.team || "");
-    }
+    fetchCharacter();
 
     return () => {
       resetMessages();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSave = () => {
@@ -57,7 +54,7 @@ const EditCharacter = observer(() => {
           <Input getValue={getValue} name="alias" handleChange={handleChange}/>
           <Input getValue={getValue} name="fullname" handleChange={handleChange}/>
 
-          <div className="character-field">
+          <div className="form-field">
             <label htmlFor="alignment">Alignment:</label>
             <select id="alignment" value={getValue("alignment")} onChange={handleAlignmentChange} name="alignment">
               <option value="good">Good</option>

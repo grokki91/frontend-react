@@ -103,6 +103,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 100%;
 }
 
 .container {
@@ -437,14 +438,18 @@ input[type="radio"]:checked {
   background-color: var(--button-color);
 }
 
+.form-field {
+  display: flex;
+  justify-content: center;
+}
+
 .edit-character {
   font-size: 15px;
   transform: scale(2);
   animation: unset;
   width: 320px;
 
-  .character-field {
-    display: flex;
+  .form-field {
     justify-content: space-between;
     margin-bottom: 10px;
   }
@@ -483,16 +488,6 @@ input[type="radio"]:checked {
   transform: scale(1);
 }
 
-.users {
-  overflow: hidden;
-}
-
-.users-list {
-  overflow-y: auto;
-  max-height: 100%;
-  /* padding-right: 10px; */
-}
-
 /* .users-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -507,23 +502,48 @@ input[type="radio"]:checked {
   border-radius: 4px;
 }  */
 
-.users-child {
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 20px;
-  background: var(--auth-color);
-  border-radius: var(--border-radius);
-  margin-bottom: 10px;
-}
+.users {
+  overflow: hidden;
 
-.users-child-fields {
-  flex-direction: column;
-  align-items: baseline;
-}
+  .users-list {
+    justify-content: flex-start;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 100%;
+    /* padding-right: 10px; */
+  }
 
-.users-child button {
-  margin: 0;
+  .users-child {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--auth-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .users-child-fields {
+    flex-direction: column;
+    align-items: baseline;
+    flex-wrap: wrap;
+    word-break: break-word;
+    max-width: 70%;
+
+    .field-label {
+      font-weight: bold;
+
+      .field-value {
+        font-weight: normal;
+      }
+    }
+  }
+  
+  .users-child button {
+    margin: 0;
+  }
 }
 
 .user-wrapper {
@@ -537,13 +557,34 @@ input[type="radio"]:checked {
     font-size: 25px;
   }
   
-  .character-field {
-    width: 100%;
+  .form-field {
     justify-content: space-between;
+    width: 100%;
     margin-bottom: 20px;
 
-    .user-view div:first-child {
-      font-weight: bold;
+    .user-view {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .user-view {
+      width: 100%;
+
+      div {
+        word-break: break-word;
+      }
+
+      .user-view-field {
+        font-weight: bold;
+      }
+  
+      .user-view-value {
+        max-width: 90%;
+        flex-wrap: wrap;
+        font-size: 16px;
+      }
     }
     .user-edit {
       width: 100%;
@@ -569,6 +610,17 @@ input[type="radio"]:checked {
   .message {
     margin-top: 20px;
   }
+}
+
+.toaster {
+  position: fixed;
+  width: 250px;
+  height: 150px;
+  background: var(--auth-color);
+  bottom: 50px;
+  right: 50px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
 }
 
 @keyframes spin {
@@ -599,6 +651,10 @@ input[type="radio"]:checked {
 }
 
 @media (max-width: 1200px) {
+  .container {
+    padding: 0 100px;
+  }
+
   .dropdown-content {
     left: 0;
     right: 0;
@@ -611,13 +667,23 @@ input[type="radio"]:checked {
   }
 
   .user-wrapper {
-    padding: 10px 40px;
+    padding: 10px 30px;
   }
   
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 50px;
+  }
+
   .dropdown-content {
     width: 100%;
+  }
+
+  .user-wrapper {
+    padding: 10px 10px;
+
+    .user-form {}
   }
 }

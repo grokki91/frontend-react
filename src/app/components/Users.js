@@ -14,17 +14,17 @@ const Users = observer(() => {
   return (
     <main className="users flex-center">
       <Spinner className="spinner-transparent"/>
-      <div className="users-list">
+      <div className="users-list flex-center">
         {users.map((user, id) => {
           return (
             <div className="users-child flex-center" key={id}>
               <div className="users-child-fields flex-center">
-                <span>Created: {user.created}</span>
-                <span>Username: {user.username}, </span>
-                <span>Email: {user.email}, </span>
-                <span>Gender: {user.gender}, </span>
-                <span>Birthday: {user.birthday}, </span>
-                <span>Role: {user.role}</span>
+                <div className="field-label">Created: <span className="field-value">{user.created}</span></div> 
+                <div className="field-label">Username: <span className="field-value">{user.username}</span></div> 
+                <div className="field-label">Email: <span className="field-value">{user.email}</span></div> 
+                <div className="field-label">Gender: <span className="field-value">{user.gender}</span></div> 
+                <div className="field-label">Birthday: <span className="field-value">{user.birthday}</span></div> 
+                <div className="field-label">Role: <span className="field-value">{user.role}</span></div> 
               </div>
               <div className="users-child-btn">
                 <button onClick={(id) => deleteUser(user.id)}>Delete</button>

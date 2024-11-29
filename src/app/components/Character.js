@@ -26,12 +26,12 @@ const Character = observer(({popupRef}) => {
                 :
                 (
                     <div className='popup' ref={popupRef}>
-                        <div className="character-field">Alias: {currentCharacter.alias}</div>
-                        <div className="character-field">Full name: {currentCharacter.full_name}</div>
-                        <div className="character-field">Alignment: {currentCharacter.alignment}</div>
-                        <div className="character-field">Abilities: {currentCharacter.abilities}</div>
-                        <div className="character-field">Age: {currentCharacter.age}</div>
-                        <div className="character-field">Team: {currentCharacter.team}</div>
+                        <div className="form-field">Alias: {currentCharacter.alias}</div>
+                        <div className="form-field">Full name: {currentCharacter.full_name}</div>
+                        <div className="form-field">Alignment: {currentCharacter.alignment}</div>
+                        <div className="form-field">Abilities: {currentCharacter.abilities}</div>
+                        <div className="form-field">Age: {currentCharacter.age}</div>
+                        <div className="form-field">Team: {currentCharacter.team}</div>
 
                         <button className='close-btn' onClick={() => handlePopupClose()}>&#10006;</button>
                         <button className='popup-btn' onClick={() => handleEdit()}>Edit</button>

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import userStore from '../store/UserStore';
 import { observer } from 'mobx-react-lite';
 import generalStore from '../store/GeneralStore';
 import Spinner from "./Spinner";
 import messageStore from '../store/MessageStore';
+import Toaster from './Toaster';
 
 const User = observer(() => {
   const { inputStore, updateUser, changePassword, fetchUser} = userStore;
@@ -13,6 +14,7 @@ const User = observer(() => {
   
   useEffect(() => {
     fetchUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleEditCancel = () => {
@@ -49,8 +51,8 @@ const User = observer(() => {
       { label: "Birthday", fieldName: "birthday" }
     ];
 
-    return fields.map(({label, fieldName, isPassword}) => (
-      <div className="character-field flex-center">
+    return fields.map(({label, fieldName}) => (
+      <div className="form-field flex-center" key={fieldName}>
       {editField === fieldName ? (
         <div className="user-edit">
           {
@@ -65,9 +67,9 @@ const User = observer(() => {
         </div>
       ) : (
         <>
-          <div className='user-view'>
-            <div>{label.toUpperCase()}:</div>
-            { fieldName !== "password" ? <div>{getValue(fieldName)}</div> : <></> }
+          <div className='user-view flex-center'>
+            <div className='user-view-field'>{label.toUpperCase()}:</div>
+            { fieldName !== "password" ? <div className='user-view-value'>{getValue(fieldName)}</div> : <></> }
           </div>
           <button onClick={() => handleEditChange(fieldName)}>Change</button>
         </>
@@ -84,7 +86,7 @@ const User = observer(() => {
     ]
 
     return fields.map(({text, value}) => (
-      <label htmlFor={value}>
+      <label htmlFor={value} key={value}>
         <span>{text}:</span>
         <input type="password" value={getValue(value)} onChange={handleChange} name={value} />
       </label>
@@ -105,6 +107,7 @@ const User = observer(() => {
           </div>
         </div>
       }
+      <Toaster />
     </main>
   );
 });
