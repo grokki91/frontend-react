@@ -12,7 +12,7 @@ const Character = observer(({popupRef}) => {
 
     const handleRemove = () => {
         deleteCharacter(currentCharacter.id);
-        handlePopupClose()
+        handlePopupClose();
     }
 
     const handleEdit = () => {
@@ -25,18 +25,20 @@ const Character = observer(({popupRef}) => {
                 ? <EditCharacter />
                 :
                 (
-                    <div className='popup' ref={popupRef}>
-                        <div className="form-field">Alias: {currentCharacter.alias}</div>
-                        <div className="form-field">Full name: {currentCharacter.full_name}</div>
-                        <div className="form-field">Alignment: {currentCharacter.alignment}</div>
-                        <div className="form-field">Abilities: {currentCharacter.abilities}</div>
-                        <div className="form-field">Age: {currentCharacter.age}</div>
-                        <div className="form-field">Team: {currentCharacter.team}</div>
+                    <>
+                        <div className='popup' ref={popupRef}>
+                            <div className="form-field">Alias: {currentCharacter.alias}</div>
+                            <div className="form-field">Full name: {currentCharacter.full_name}</div>
+                            <div className="form-field">Alignment: {currentCharacter.alignment}</div>
+                            <div className="form-field">Abilities: {currentCharacter.abilities}</div>
+                            <div className="form-field">Age: {currentCharacter.age}</div>
+                            <div className="form-field">Team: {currentCharacter.team}</div>
 
-                        <button className='close-btn' onClick={() => handlePopupClose()}>&#10006;</button>
-                        <button className='popup-btn' onClick={() => handleEdit()}>Edit</button>
-                        <button className='popup-btn' onClick={() => handleRemove()}>Delete</button>
-                    </div>
+                            <button className='close-btn' onClick={() => handlePopupClose()}>&#10006;</button>
+                            <button className='popup-btn' onClick={() => handleEdit()}>Edit</button>
+                            <button className='popup-btn' onClick={() => handleRemove()}>Delete</button>
+                        </div>
+                    </>
                 )
             }
         </>

@@ -275,7 +275,7 @@ h2 {
 }
 
 .success {
-  color: green;
+  color: #ccc;
 }
 
 .characters {
@@ -620,11 +620,14 @@ input[type="radio"]:checked {
   background: var(--auth-color);
   bottom: 50px;
   right: 50px;
-  opacity: 1;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 10000;
   transition: opacity 1s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
   border-radius: var(--border-radius);
   font-size: 15px;
+  /* visibility: visible;  */
 }
 
 .fade-out {
@@ -693,7 +696,5 @@ input[type="radio"]:checked {
 
   .user-wrapper {
     padding: 10px 10px;
-
-    .user-form {}
   }
 }

@@ -20,6 +20,7 @@ const Toaster = observer(() => {
                 clearTimeout(timer);
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isToasterVisible])
 
     if (!isToasterVisible) return null;

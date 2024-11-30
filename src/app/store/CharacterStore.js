@@ -117,8 +117,14 @@ class CharacterStore {
     const url = this.URL_CHARACTERS + "/" + id;
 
     try {
-      await fetchWithAuth(url, options, this.setLogin);
-      this.setCharacters(this.characters.filter(character => character.id !== id));
+      const response = await fetchWithAuth(url, options, this.setLogin);
+
+      if (response.Status === "Success") {
+        popupStore.handlePopupClose();
+        popupStore.setToasterVisible(true);
+        messageStore.setFormSuccessMessage(response.Message);
+        this.setCharacters(this.characters.filter(character => character.id !== id));
+      }
     } catch (error) {
       messageStore.setFormErrorMessage(error.toString());
     }

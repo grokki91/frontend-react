@@ -5,6 +5,7 @@ import characterStore from "../store/CharacterStore";
 import popupStore from "../store/PopupStore";
 import messageStore from "../store/MessageStore";
 import Spinner from "./Spinner";
+import Toaster from "./Toaster";
 
 const Characters = observer(() => {
   const {generalErrorMessage, resetMessages} = messageStore;
@@ -35,12 +36,13 @@ const Characters = observer(() => {
 
   return (
     <div className="characters flex-center">
+      <Toaster />
       <Spinner className="spinner-transparent"/>
       {
         generalErrorMessage || characters.map((character, id) => {
           return (
             <div key={id} className="character flex-center">
-              <div className="form-field">Alias: {character.alias}</div>
+              <div className="form-field">{character.alias}</div>
               <button className="info-btn" onClick={() => handlePopupOpen(character)}>View</button>
             </div>
           );
