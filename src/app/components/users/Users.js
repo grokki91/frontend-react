@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import Spinner from "./Spinner";
-import userStore from "../store/UserStore";
+import Spinner from "../Spinner";
+import userStore from "../../store/UserStore";
 import { observer } from "mobx-react-lite";
+import Toaster from "../Toaster";
 
 const Users = observer(() => {
   const {users, getUsers, deleteUser} = userStore;
@@ -13,6 +14,7 @@ const Users = observer(() => {
 
   return (
     <main className="users flex-center">
+      <Toaster />
       <Spinner className="spinner-transparent"/>
       <div className="users-list flex-center">
         {users.map((user, id) => {
@@ -24,7 +26,7 @@ const Users = observer(() => {
                 <div className="field-label">Email: <span className="field-value">{user.email}</span></div> 
                 <div className="field-label">Gender: <span className="field-value">{user.gender}</span></div> 
                 <div className="field-label">Birthday: <span className="field-value">{user.birthday}</span></div> 
-                <div className="field-label">Role: <span className="field-value">{user.role}</span></div> 
+                <div className="field-label">Role: <span className="field-value">{user.role.slice(5)}</span></div> 
               </div>
               <div className="users-child-btn">
                 <button onClick={(id) => deleteUser(user.id)}>Delete</button>

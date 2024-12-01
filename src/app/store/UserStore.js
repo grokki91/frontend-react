@@ -120,8 +120,13 @@ class UserStore {
 
   deleteUser = async (id) => {
     try {
-      await fetchWithAuth(this.URL_GET_USERS + '/' + id, {method: 'DELETE'}, generalStore.setLogin);
-      this.getUsers();
+      const response = await fetchWithAuth(this.URL_GET_USERS + '/' + id, {method: 'DELETE'}, generalStore.setLogin);
+
+      if (response.Status === "Success") {
+        this.getUsers();
+        popupStore.setToasterVisible(true);
+        messageStore.setFormSuccessMessage(response.Message);
+      }
     } catch (error) {
       messageStore.setGeneralErrorMessage(error.toString());
     }

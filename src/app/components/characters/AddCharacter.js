@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Popup from "./Popup";
+import Popup from "../Popup";
 import { observer } from "mobx-react-lite";
-import characterStore from "../store/CharacterStore";
-import popupStore from "../store/PopupStore";
-import messageStore from "../store/MessageStore";
+import characterStore from "../../store/CharacterStore";
+import popupStore from "../../store/PopupStore";
+import messageStore from "../../store/MessageStore";
 
 const AddCharacter = observer(() => {
   const {formErrorMessage, formSuccessMessage, resetMessages} = messageStore;
@@ -23,7 +23,7 @@ const AddCharacter = observer(() => {
   }, [])
 
   return (
-    <main className="new-character flex-center">
+    <main className="character flex-center">
       <h2>New character</h2>
       <div className="inputs flex-center">
         <input type="text" placeholder="Alias" value={getValue("alias")} onChange={handleChange} name="alias" />

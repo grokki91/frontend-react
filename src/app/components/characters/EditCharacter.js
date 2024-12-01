@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import characterStore from '../store/CharacterStore';
-import generalStore from '../store/GeneralStore';
-import popupStore from '../store/PopupStore';
+import characterStore from '../../store/CharacterStore';
+import generalStore from '../../store/GeneralStore';
+import popupStore from '../../store/PopupStore';
 import { observer } from 'mobx-react-lite';
-import messageStore from '../store/MessageStore';
-import Spinner from './Spinner';
-import Input from './Input';
+import messageStore from '../../store/MessageStore';
+import Spinner from '../Spinner';
+import Input from '../Input';
 
 const EditCharacter = observer(() => {
   const {setEditing} = generalStore;
-  const {formErrorMessage, setFormErrorMessage, resetMessages} = messageStore;
+  const {formErrorMessage, setFormErrorMessage} = messageStore;
   const {
     currentCharacter, inputStore, checkFields, handleAgeChange, handleAlignmentChange, 
     resetCharacter, updateCharacter, hasChanges, fetchCharacter
@@ -20,10 +20,6 @@ const EditCharacter = observer(() => {
 
   useEffect(() => {
     fetchCharacter();
-
-    return () => {
-      resetMessages();
-    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

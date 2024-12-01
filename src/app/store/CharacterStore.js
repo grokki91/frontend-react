@@ -122,7 +122,7 @@ class CharacterStore {
       if (response.Status === "Success") {
         popupStore.handlePopupClose();
         popupStore.setToasterVisible(true);
-        messageStore.setFormSuccessMessage(response.Message);
+        messageStore.setFormSuccessMessage("Character has been removed");
         this.setCharacters(this.characters.filter(character => character.id !== id));
       }
     } catch (error) {
@@ -141,10 +141,13 @@ class CharacterStore {
     try {
       generalStore.setLoading(true);
       const response = await fetchWithAuth(url, options, this.setLogin);
+
       if (response.Status === "Success") {
         popupStore.handlePopupClose();
         popupStore.setPopupOpened(false);
         generalStore.setEditing(false);
+        popupStore.setToasterVisible(true);
+        messageStore.setFormSuccessMessage(response.Message);
       } 
     } catch (error) {
       messageStore.setFormErrorMessage(error.toString());

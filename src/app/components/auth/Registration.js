@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import userStore from "../store/UserStore";
-import messageStore from "../store/MessageStore";
+import userStore from "../../store/UserStore";
+import messageStore from "../../store/MessageStore";
 
 const Registration = observer(() => {
   const {gender, handleGenderChange, registration, inputStore} = userStore;

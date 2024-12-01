@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import userStore from '../store/UserStore';
+import userStore from '../../store/UserStore';
 import { observer } from 'mobx-react-lite';
-import generalStore from '../store/GeneralStore';
-import Spinner from "./Spinner";
-import messageStore from '../store/MessageStore';
-import Toaster from './Toaster';
+import generalStore from '../../store/GeneralStore';
+import Spinner from "../Spinner";
+import messageStore from '../../store/MessageStore';
+import Toaster from '../Toaster';
 
 const User = observer(() => {
   const { inputStore, updateUser, changePassword, fetchUser} = userStore;
@@ -94,7 +94,8 @@ const User = observer(() => {
   }
 
   return (
-    <main className="flex-center">
+    <main className="user flex-center">
+      <Toaster />
       {
         isLoading ?
         <Spinner /> :
@@ -107,7 +108,6 @@ const User = observer(() => {
           </div>
         </div>
       }
-      <Toaster />
     </main>
   );
 });

@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import characterStore from '../store/CharacterStore';
+import characterStore from "../../store/CharacterStore";
 import EditCharacter from './EditCharacter';
-import popupStore from '../store/PopupStore';
-import generalStore from '../store/GeneralStore';
+import popupStore from '../../store/PopupStore';
+import generalStore from '../../store/GeneralStore';
 
 const Character = observer(({popupRef}) => {
     const {isEditing, setEditing} = generalStore;

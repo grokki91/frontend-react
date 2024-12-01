@@ -1,20 +1,19 @@
 import React, { useEffect, useRef } from "react";
-import Popup from "./Popup";
+import Popup from "../Popup";
 import { observer } from "mobx-react-lite";
-import characterStore from "../store/CharacterStore";
-import popupStore from "../store/PopupStore";
-import messageStore from "../store/MessageStore";
-import Spinner from "./Spinner";
-import Toaster from "./Toaster";
+import characterStore from "../../store/CharacterStore";
+import popupStore from "../../store/PopupStore";
+import messageStore from "../../store/MessageStore";
+import Spinner from "../Spinner";
+import Toaster from "../Toaster";
 
 const Characters = observer(() => {
-  const {generalErrorMessage, resetMessages} = messageStore;
+  const {generalErrorMessage} = messageStore;
   const {characters, currentCharacter, getCharacters} = characterStore;
   const {isPopupOpened, handlePopupOpen, handleClickOutside} = popupStore;
   const popupRef = useRef(null);
   
   useEffect(() => {
-    resetMessages();
     getCharacters();
 
     const handlePopupOutsideClick = (event) => {
@@ -35,13 +34,13 @@ const Characters = observer(() => {
   }, [isPopupOpened, getCharacters])
 
   return (
-    <div className="characters flex-center">
+    <main className="characters flex-center">
       <Toaster />
       <Spinner className="spinner-transparent"/>
       {
         generalErrorMessage || characters.map((character, id) => {
           return (
-            <div key={id} className="character flex-center">
+            <div key={id} className="character character-box flex-center">
               <div className="form-field">{character.alias}</div>
               <button className="info-btn" onClick={() => handlePopupOpen(character)}>View</button>
             </div>
@@ -49,7 +48,7 @@ const Characters = observer(() => {
         })
       }
       {isPopupOpened && currentCharacter && <Popup currentCharacter={currentCharacter} popupRef={popupRef} />}
-    </div>
+    </main>
   )
 });
 
