@@ -13,7 +13,7 @@ const App = observer(() => {
 
 
   return (
-    <div className="container flex-center" style={{flexDirection: "column"}}>
+    <div className="container flex-center">
       {isLogin ? (
         <HomePage />
       ) : (

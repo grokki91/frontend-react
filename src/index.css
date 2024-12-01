@@ -100,6 +100,7 @@ button:hover {
 }
 
 .container {
+  flex-direction: column;
   padding: 0 100px;
 }
 
@@ -118,7 +119,6 @@ button:hover {
   background: var(--nav-color);
   border-radius: var(--border-radius);
   margin: 20px auto;
-  padding: 0 20px;
   max-width: 1200px;
   width: calc(100% - 40px); 
   margin-bottom: 20px;
@@ -139,6 +139,9 @@ button:hover {
   .nav-list li {
     width: 100%;
     text-align: center;
+  }
+  .nav-list li a {
+    padding: 5px 10px;
   }
   .nav a:hover {
     color: var(--nav-active);
@@ -175,9 +178,6 @@ button:hover {
     right: 0;
     background: var(--nav-color);
   }
-  .nav:has(.dropdown:hover) {
-    border-bottom-right-radius: 0;
-  }
   .dropdown:hover > .dropdown-content {
     display: flex;
   }
@@ -195,6 +195,10 @@ button:hover {
     padding: 8px;
     width: 40%;
   }
+}
+
+.nav:has(.dropdown:hover) {
+  border-bottom-right-radius: 0;
 }
 
 .auth {
@@ -299,6 +303,7 @@ h2 {
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   animation: fadeIn 0.3s;
+  z-index: 1000;
 }
 
 .popup {
@@ -478,6 +483,10 @@ input[type="radio"]:checked {
 
 .scale {
   transform: scale(1);
+}
+
+.add-btn {
+  text-transform: uppercase;
 }
 
 /* .users-list::-webkit-scrollbar {
@@ -665,15 +674,16 @@ input[type="radio"]:checked {
     width: 70%;
   }
 
-  .dropdown-content {
-    left: 0;
-    right: 0;
-    transform: none;
-    max-width: none;
-  }
-
-  main {
-    width: 60%;
+  .nav {
+    .dropdown-content {
+      left: 0;
+      right: 0;
+      transform: none;
+      max-width: none;
+    }
+    .dropdown-content button {
+      width: 80%;
+    }
   }
 
   .user {
@@ -767,6 +777,7 @@ input[type="radio"]:checked {
       display: flex;
       padding: 0;
       margin: 0;
+      width: 100%;
     }
     .dropdown-content a {
       margin: 0;
@@ -777,7 +788,7 @@ input[type="radio"]:checked {
   }
 
   .character-box {
-    width: calc(100%/2 - 50px);
+    width: calc(100%/3 - 30px);
   }
 
   .popup {
@@ -815,9 +826,19 @@ input[type="radio"]:checked {
 @media (max-width: 600px) {
   main {
     width: 70%;
+    padding: 20px 0;
+  }
+  
+  .character {
+    padding: 0;
   }
 
-  .form-field {
-    flex-direction: column;
+  .character-box {
+    width: calc(100%/2 - 50px);;
+  }
+
+  .add-btn {
+    width: 80%;
+    padding: 5px 0;
   }
 }

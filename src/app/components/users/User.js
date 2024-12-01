@@ -71,7 +71,7 @@ const User = observer(() => {
             <div className='user-view-field'>{label.toUpperCase()}:</div>
             { fieldName !== "password" ? <div className='user-view-value'>{getValue(fieldName)}</div> : <></> }
           </div>
-          <button onClick={() => handleEditChange(fieldName)}>Change</button>
+          <button onClick={() => handleEditChange(fieldName)}>&#9998;</button>
         </>
       )}
     </div>

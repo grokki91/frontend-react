@@ -26,8 +26,8 @@ const AddCharacter = observer(() => {
     <main className="character flex-center">
       <h2>New character</h2>
       <div className="inputs flex-center">
-        <input type="text" placeholder="Alias" value={getValue("alias")} onChange={handleChange} name="alias" />
-        <input type="text" placeholder="Full Name" value={getValue("fullname")} onChange={handleChange} name="fullname" autoFocus />
+        <input type="text" placeholder="Alias" value={getValue("alias")} onChange={handleChange} name="alias" autoFocus />
+        <input type="text" placeholder="Full Name" value={getValue("fullname")} onChange={handleChange} name="fullname" />
         <div className="selection-group">
           <div className="selection-group-childes flex-center">
             <label><input type="radio" name="alignment" onChange={handleAlignmentChange} value="good" checked={alignment === "good"} />Good</label>
@@ -39,7 +39,7 @@ const AddCharacter = observer(() => {
         <input type="text" placeholder="Team" value={getValue("team")} onChange={handleChange} name="team" />
         <div className="message">{formErrorMessage}</div>
       </div>
-      <button onClick={() => addCharacter(navigate)}>Add</button>
+      <button className="add-btn" onClick={() => addCharacter(navigate)}>Add</button>
       {isPopupOpened && <Popup message={formSuccessMessage} />}
     </main>
   );
