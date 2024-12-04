@@ -6,10 +6,10 @@ import messageStore from "./MessageStore";
 import popupStore from "./PopupStore";
 
 class UserStore {
-  URL_LOGIN = "http://193.32.178.174:8080/login";
-  URL_REGISTRATION = "http://193.32.178.174:8080/signup";
-  URL_GET_USERS = "http://193.32.178.174:8080/api/users";
-  URL_CHANGE_PASSWORD = "http://193.32.178.174:8080/api/users/change-password";
+  URL_LOGIN = `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/login`;
+  URL_REGISTRATION = `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/signup`;
+  URL_GET_USERS = `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/users`;
+  URL_CHANGE_PASSWORD = `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/users/change-password`;
   users = [];
   currentUser = null;
   gender = "";

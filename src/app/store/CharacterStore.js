@@ -6,9 +6,9 @@ import popupStore from "./PopupStore";
 import messageStore from "./MessageStore";
 
 class CharacterStore {
-  URL_CHARACTERS = 'http://193.32.178.174:8080/api/characters'
-  URL_ADD = "http://193.32.178.174:8080/api/characters/add";
-  URL_DELETE = "http://193.32.178.174:8080/api/characters/";
+  URL_CHARACTERS = `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/characters`
+  URL_ADD = `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/characters/add`;
+  URL_DELETE = `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/characters/`;
   characters = [];
   currentCharacter = null;
   alignment = "good";
