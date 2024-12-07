@@ -195,6 +195,47 @@
     background: var(--nav-color);
   }
 
+  .container {
+    padding: 0 15px;
+  }
+
+  .auth-wrapper {
+    width: 100%;
+
+    .auth {
+      width: 100%;
+      min-height: 400px;
+      height: 100%;
+    }
+    .inputs {
+      width: 100%;
+    }
+    input:not([type=radio]) {
+      width: 100%;
+    }
+    .auth button {
+      width: 100%;
+      padding: 7px 0;
+    }
+    .auth-suggest {
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .auth-suggest span,
+    .auth-suggest button {
+      width: calc(100%/2 - 20px);
+      text-align: center;
+    }
+    .auth-suggest button {
+      border: 1px solid;
+      margin-bottom: 0;
+    }
+    .registration {
+      min-height: 470px;
+    }
+  }
+
   .nav {
     font-size: 20px;
 
@@ -204,7 +245,7 @@
     }
     .nav-list li a {
       padding: 10px 15px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     .dropdown-content button {
       width: 100%;
