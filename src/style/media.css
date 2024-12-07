@@ -188,6 +188,24 @@
     width: 80%;
     padding: 8px 0;
   }
+
+  .users {
+    padding: 5px 0;
+
+    .users-child {
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    .users-child-fields {
+      width: 100%;
+
+      .field-label {
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
 }
 
 @media (max-width: 500px) {
@@ -196,7 +214,7 @@
   }
 
   .container {
-    padding: 0 15px;
+    padding: 0;
   }
 
   .auth-wrapper {

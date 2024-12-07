@@ -21,12 +21,30 @@ const Users = observer(() => {
           return (
             <div className="users-child flex-center" key={id}>
               <div className="users-child-fields flex-center">
-                <div className="field-label">Created: <span className="field-value">{user.created && user.created.slice(0,10)}</span></div> 
-                <div className="field-label">Username: <span className="field-value">{user.username}</span></div> 
-                <div className="field-label">Email: <span className="field-value">{user.email}</span></div> 
-                <div className="field-label">Gender: <span className="field-value">{user.gender}</span></div> 
-                <div className="field-label">Birthday: <span className="field-value">{user.birthday}</span></div> 
-                <div className="field-label">Role: <span className="field-value">{user.role.slice(5)}</span></div> 
+                <div className="field-label">
+                  <div>Created:</div>
+                  <div className="field-value">{user.created && user.created.slice(0,10)}</div>
+                </div> 
+                <div className="field-label">
+                  <div>Username:</div>
+                  <div className="field-value">{user.username}</div>
+                </div> 
+                <div className="field-label">
+                  <div>Email:</div> 
+                  <div className="field-value">{user.email}</div>
+                </div> 
+                <div className="field-label">
+                  <div>Gender:</div>
+                  <div className="field-value">{user.gender}</div>
+                </div> 
+                <div className="field-label">
+                  <div>Birthday:</div>
+                  <div className="field-value">{user.birthday}</div>
+                </div> 
+                <div className="field-label">
+                  <div>Role:</div>
+                  <div className="field-value">{user.role.slice(5)}</div>
+                </div> 
               </div>
               <div className="users-child-btn">
                 <button onClick={(id) => deleteUser(user.id)}>Delete</button>
