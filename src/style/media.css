@@ -191,10 +191,11 @@
 
   .users {
     padding: 5px 0;
+    height: 100%;
 
     .users-child {
       align-items: center;
-      padding: 15px 0;
+      padding: 20px 0;
     }
 
     .users-child-fields {
@@ -205,6 +206,10 @@
         width: 100%;
       }
     }
+  }
+
+  .user {
+    height: 100%;
   }
 }
 
@@ -259,7 +264,8 @@
 
     .nav-list {
       height: 100vh;
-      justify-content: center;
+      justify-content: start;
+      margin-top: 30px;
     }
     .nav-list li a {
       padding: 10px 15px;
