@@ -173,6 +173,7 @@
 @media (max-width: 600px) {
   main {
     width: 70%;
+    min-height: 320px;
     padding: 20px 0;
   }
 
@@ -224,11 +225,13 @@
 
   .auth-wrapper {
     width: 100%;
+    min-height: 90vh;
 
     .auth {
       width: 100%;
-      min-height: 400px;
+      min-height: 350px;
       height: 100%;
+      margin: 0 10px;
     }
     .inputs {
       width: 100%;
@@ -244,6 +247,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 0;
+      font-size: 15px;
     }
     .auth-suggest span,
     .auth-suggest button {
