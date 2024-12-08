@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import userStore from '../../store/UserStore';
 import { observer } from 'mobx-react-lite';
 import generalStore from '../../store/GeneralStore';
-import Spinner from "../Spinner";
+import Spinner from "../../elements/Spinner";
 import messageStore from '../../store/MessageStore';
-import Toaster from '../Toaster';
+import Toaster from '../../elements/Toaster';
 
 const User = observer(() => {
   const { inputStore, updateUser, changePassword, fetchUser} = userStore;

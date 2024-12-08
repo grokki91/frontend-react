@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import Popup from "../Popup";
+import Popup from "../../elements/Popup";
 import { observer } from "mobx-react-lite";
 import characterStore from "../../store/CharacterStore";
 import popupStore from "../../store/PopupStore";
 import messageStore from "../../store/MessageStore";
-import Spinner from "../Spinner";
-import Toaster from "../Toaster";
+import Spinner from "../../elements/Spinner";
+import Toaster from "../../elements/Toaster";
 
 const Characters = observer(() => {
   const {generalErrorMessage} = messageStore;

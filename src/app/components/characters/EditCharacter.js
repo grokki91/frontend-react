@@ -4,8 +4,8 @@ import generalStore from '../../store/GeneralStore';
 import popupStore from '../../store/PopupStore';
 import { observer } from 'mobx-react-lite';
 import messageStore from '../../store/MessageStore';
-import Spinner from '../Spinner';
-import Input from '../Input';
+import Spinner from '../../elements/Spinner';
+import Input from '../../elements/Input';
 
 const EditCharacter = observer(() => {
   const {setEditing} = generalStore;

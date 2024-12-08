@@ -323,7 +323,7 @@ h2 {
 .close-btn {
   position: absolute;
   right: -20px;
-  top: -20px;
+  top: -25px;
   padding: 2px 4px;
   background-color: transparent;
 }

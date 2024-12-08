@@ -1,5 +1,5 @@
 import React from 'react';
-import Character from './characters/Character';
+import Character from '../components/characters/Character';
 import { observer } from 'mobx-react-lite';
 
 const Popup = observer(({popupRef, message}) => {

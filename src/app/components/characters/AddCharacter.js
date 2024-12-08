@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Popup from "../Popup";
+import Popup from "../../elements/Popup";
 import { observer } from "mobx-react-lite";
 import characterStore from "../../store/CharacterStore";
 import popupStore from "../../store/PopupStore";

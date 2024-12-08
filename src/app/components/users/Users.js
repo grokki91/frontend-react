@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Spinner from "../Spinner";
+import Spinner from "../../elements/Spinner";
 import userStore from "../../store/UserStore";
 import { observer } from "mobx-react-lite";
-import Toaster from "../Toaster";
+import Toaster from "../../elements/Toaster";
 
 const Users = observer(() => {
   const {users, getUsers, deleteUser} = userStore;
