@@ -6,15 +6,18 @@ import popupStore from "../../store/PopupStore";
 import messageStore from "../../store/MessageStore";
 import Spinner from "../../elements/Spinner";
 import Toaster from "../../elements/Toaster";
+import generalStore from "../../store/GeneralStore";
 
 const Characters = observer(() => {
   const {generalErrorMessage} = messageStore;
   const {characters, currentCharacter, getCharacters} = characterStore;
   const {isPopupOpened, handlePopupOpen, handleClickOutside} = popupStore;
+  const {isMobile, checkMobile} = generalStore;
   const popupRef = useRef(null);
   
   useEffect(() => {
     getCharacters();
+    checkMobile();
 
     const handlePopupOutsideClick = (event) => {
       handleClickOutside(event, popupRef);
@@ -33,6 +36,13 @@ const Characters = observer(() => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPopupOpened, getCharacters])
 
+  const handlePopupOpenMobile = (character) => {
+    if (isMobile) {
+      console.log("Мобильная верстка");
+      handlePopupOpen(character)
+    }
+  };
+
   return (
     <main className="characters flex-center">
       <Toaster />
@@ -40,7 +50,7 @@ const Characters = observer(() => {
       {
         generalErrorMessage || characters.map((character, id) => {
           return (
-            <div key={id} className="character character-box flex-center">
+            <div key={id} className="character character-box flex-center" onClick={() => handlePopupOpenMobile(character)}>
               <div className="form-field">{character.alias}</div>
               <button className="info-btn" onClick={() => handlePopupOpen(character)}>View</button>
             </div>

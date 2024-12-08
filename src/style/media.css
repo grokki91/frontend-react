@@ -173,16 +173,30 @@
 @media (max-width: 600px) {
   main {
     width: 70%;
-    min-height: 320px;
     padding: 20px 0;
   }
 
-  .character {
-    padding: 0;
+  .characters .character {
+    padding: 25px 10px;
+    min-height: 98px;
+    height: 100%;
   }
 
   .character-box {
     width: calc(100% / 2 - 50px);
+    cursor: pointer;
+  }
+
+  .info-btn {
+    display: none;
+  }
+
+  .character {
+    height: 80vh;
+  }
+
+  .character div {
+    margin-bottom: 0;
   }
 
   .add-btn {
@@ -229,7 +243,7 @@
 
     .auth {
       width: 100%;
-      min-height: 350px;
+      min-height: 450px;
       height: 100%;
       margin: 0 10px;
     }
@@ -287,10 +301,6 @@
 
   .popup {
     width: 45%;
-    padding: 10px;
-  }
-
-  .character {
     padding: 10px;
   }
 

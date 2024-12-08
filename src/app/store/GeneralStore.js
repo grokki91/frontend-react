@@ -8,6 +8,7 @@ class GeneralStore {
   isSignUp = false;
   isEditing = false;
   editField = null;
+  isMobile = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -44,6 +45,10 @@ class GeneralStore {
     this.editField = editField;
   }
 
+  setMobile = (isMobile) => {
+    this.isMobile = isMobile;
+  }
+
   checkLogin = () => {
     let tokenStorage = localStorage.getItem("token");
 
@@ -51,7 +56,13 @@ class GeneralStore {
       this.setToken(tokenStorage);
       this.setLogin(true);
     }
-  } 
+  }
+  
+  checkMobile = () => {
+    if (window.innerWidth <= 600 ) {
+      this.setMobile(true);
+    }
+  }
 }
 
 const generalStore = new GeneralStore();

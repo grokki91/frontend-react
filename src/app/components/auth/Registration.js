@@ -21,7 +21,10 @@ const Registration = observer(() => {
               <label><input type="radio" name="gender" onChange={handleGenderChange} value="female" checked={gender === "female"} />Female</label>
             </div>
           </div>
-          <input mask="9999-99-99" type="date" placeholder="YYYY-MM-DD" value={getValue("birthday")} onChange={handleChange} name="birthday"/>
+          <label>
+            <span>Birthday:</span>
+            <input mask="9999-99-99" type="date" placeholder="YYYY-MM-DD" value={getValue("birthday")} onChange={handleChange} name="birthday"/>
+          </label>
           <div className="message">{formErrorMessage}</div>
         </div>
         <button onClick={() => registration()}>Sign Up</button>
