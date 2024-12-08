@@ -28,7 +28,7 @@ const Character = observer(({popupRef}) => {
                     <>
                         <div className='popup' ref={popupRef}>
                             <div className="form-field">Alias: {currentCharacter.alias}</div>
-                            <div className="form-field">Full name: {currentCharacter.full_name}</div>
+                            <div className="form-field">Full name: {currentCharacter.fullname}</div>
                             <div className="form-field">Alignment: {currentCharacter.alignment}</div>
                             <div className="form-field">Abilities: {currentCharacter.abilities}</div>
                             <div className="form-field">Age: {currentCharacter.age}</div>
