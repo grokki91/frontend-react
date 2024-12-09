@@ -15,11 +15,28 @@ const EditCharacter = observer(() => {
     resetCharacter, updateCharacter, hasChanges, fetchCharacter
   } = characterStore;
   const {handleChange, getValue} = inputStore;
-  const {setPopupOpened, handlePopupClose} = popupStore;
+  const {setPopupOpened, handlePopupClose, handleClickOutside, isPopupOpened} = popupStore;
   const popupRef = useRef(null);
 
   useEffect(() => {
     fetchCharacter();
+    const handlePopupOutsideClick = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        handleClickOutside(event, popupRef);
+        setEditing(false);
+      }
+    };
+  
+
+    if (isPopupOpened) {
+      document.addEventListener('mousedown', handlePopupOutsideClick)
+    } else {
+      document.removeEventListener('mousedown', handlePopupOutsideClick)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handlePopupOutsideClick)
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

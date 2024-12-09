@@ -95,7 +95,7 @@ const User = observer(() => {
 
   return (
     <main className="user flex-center">
-      <Toaster />
+      {formSuccessMessage && <Toaster />}
       {
         isLoading ?
         <Spinner /> :

@@ -40,7 +40,7 @@ const AddCharacter = observer(() => {
         <div className="message">{formErrorMessage}</div>
       </div>
       <button className="add-btn" onClick={() => addCharacter(navigate)}>Add</button>
-      {isPopupOpened && <Popup message={formSuccessMessage} />}
+      {isPopupOpened && <Popup message={formSuccessMessage} isAddCharacter={true} />}
     </main>
   );
 });

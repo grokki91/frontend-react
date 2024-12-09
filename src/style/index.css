@@ -39,9 +39,6 @@ code {
   list-style: none;
   box-sizing: border-box;
   color: var(--text-color);
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
 }
 
 textarea {
@@ -324,6 +321,7 @@ h2 {
   animation: scaleIn 0.3s forwards;
   max-width: 60vw;
   max-height: 80vh;
+  cursor: pointer;
 }
 
 .close-btn {
@@ -506,20 +504,6 @@ input[type="radio"]:checked {
   margin-bottom: 0;
 }
 
-/* .users-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.users-list::-webkit-scrollbar-thumb {
-  background-color: var(--button-color);
-  border-radius: 4px;
-}
-
-.users-list::-webkit-scrollbar-track {
-  background: #2e2628;
-  border-radius: 4px;
-}  */
-
 .users {
   background: var(--auth-color);
   overflow: hidden;
@@ -641,7 +625,7 @@ input[type="radio"]:checked {
   position: fixed;
   width: 190px;
   height: 70px;
-  background: var(--auth-color);
+  background: green;
   bottom: 50px;
   right: 50px;
   opacity: 1;
@@ -652,6 +636,7 @@ input[type="radio"]:checked {
   border-radius: var(--border-radius);
   font-size: 15px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 .fade-out {

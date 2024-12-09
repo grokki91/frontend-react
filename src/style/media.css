@@ -226,6 +226,16 @@
   .user {
     height: 100%;
   }
+
+  .character .message {
+    margin-bottom: 20px;
+  }
+
+  .toaster {
+    width: 35%;
+    right: unset;
+    bottom: 25px;
+  }
 }
 
 @media (max-width: 500px) {

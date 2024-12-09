@@ -3,9 +3,11 @@ import Spinner from "../../elements/Spinner";
 import userStore from "../../store/UserStore";
 import { observer } from "mobx-react-lite";
 import Toaster from "../../elements/Toaster";
+import messageStore from "../../store/MessageStore";
 
 const Users = observer(() => {
   const {users, getUsers, deleteUser} = userStore;
+  const {formSuccessMessage} = messageStore;
 
   useEffect(() => {
     getUsers();
@@ -14,7 +16,7 @@ const Users = observer(() => {
 
   return (
     <main className="users flex-center">
-      <Toaster />
+      {formSuccessMessage && <Toaster />}
       <Spinner className="spinner-transparent"/>
       <div className="users-list flex-center">
         {users.map((user, id) => {

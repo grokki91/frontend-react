@@ -25,8 +25,12 @@ const Toaster = observer(() => {
 
     if (!isToasterVisible) return null;
 
+    const handleCloseToaster = () => {
+        setToasterVisible(false);
+    }
+
     return (
-        <div className={`toaster flex-center ${isFadeOut ? 'fade-out' : ''}`}>
+        <div className={`toaster flex-center ${isFadeOut ? 'fade-out' : ''}`} onClick={handleCloseToaster}>
             <div className='message success'>{formSuccessMessage}</div>
         </div>
     );

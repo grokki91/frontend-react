@@ -32,6 +32,13 @@ class PopupStore {
     this.setPopupOpened(false);
   };
 
+  handlePopupCloseForced = (navigate) => {
+    this.handlePopupClose();
+    navigate("/");
+    characterStore.resetCharacter();
+    characterStore.getCharacters();
+  };
+
   handleClickOutside = (event, popupRef) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
       this.handlePopupClose();

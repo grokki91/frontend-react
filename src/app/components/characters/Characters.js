@@ -9,7 +9,7 @@ import Toaster from "../../elements/Toaster";
 import generalStore from "../../store/GeneralStore";
 
 const Characters = observer(() => {
-  const {generalErrorMessage} = messageStore;
+  const {generalErrorMessage, formSuccessMessage} = messageStore;
   const {characters, currentCharacter, getCharacters} = characterStore;
   const {isPopupOpened, handlePopupOpen, handleClickOutside} = popupStore;
   const {isMobile, checkMobile} = generalStore;
@@ -38,14 +38,13 @@ const Characters = observer(() => {
 
   const handlePopupOpenMobile = (character) => {
     if (isMobile) {
-      console.log("Мобильная верстка");
       handlePopupOpen(character)
     }
   };
 
   return (
     <main className="characters flex-center">
-      <Toaster />
+      {formSuccessMessage && <Toaster />}
       <Spinner className="spinner-transparent"/>
       {
         generalErrorMessage || characters.map((character, id) => {
