@@ -159,7 +159,10 @@
       flex-direction: column;
       gap: 10px;
       width: 100%;
-      align-items: baseline;
+    }
+    .users-child-fields {
+      width: 100%;
+      max-width: 100%;
     }
   }
 
@@ -220,6 +223,10 @@
       .field-label {
         justify-content: space-between;
         width: 100%;
+
+        .field-value {
+          word-break: unset;
+        }
       }
     }
   }

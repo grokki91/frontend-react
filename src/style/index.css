@@ -44,6 +44,7 @@ code {
 textarea {
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
+  text-align: center;
 }
 
 a {
@@ -547,6 +548,7 @@ input[type="radio"]:checked {
       .field-value {
         font-weight: normal;
         overflow: hidden;
+        word-break: break-all;
       }
     }
   }
