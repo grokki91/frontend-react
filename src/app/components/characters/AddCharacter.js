@@ -20,6 +20,7 @@ const AddCharacter = observer(() => {
       setPopupOpened(false);
       resetMessages();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

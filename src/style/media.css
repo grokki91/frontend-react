@@ -215,6 +215,7 @@
 
     .users-child-fields {
       width: 100%;
+      max-width: 85%;
 
       .field-label {
         justify-content: space-between;
@@ -319,7 +320,7 @@
   }
 
   .edit-character {
-    transform: scale(1.5);
+    transform: scale(1.4);
     width: 60%;
 
     input {
