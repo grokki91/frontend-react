@@ -106,7 +106,7 @@ class CharacterStore {
         }, 2000);
       } 
     } catch (error) {
-      if (error.includes('LATIN1')) {
+      if (error.toString().includes('LATIN1')) {
         messageStore.setFormErrorMessage("Please use the English keyboard layout");
       } else {
         messageStore.setFormErrorMessage(error.toString());
