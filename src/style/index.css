@@ -293,6 +293,7 @@ h2 {
 
 .character {
   padding: 20px;
+  margin-bottom: 15px;
 }
 
 .character div {
@@ -514,6 +515,7 @@ input[type="radio"]:checked {
   overflow: hidden;
   justify-content: start;
   padding: 20px;
+  margin-bottom: 15px;
 
   .users-list {
     justify-content: flex-start;
