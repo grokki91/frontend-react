@@ -246,7 +246,8 @@ h2 {
 
 .registration {
   width: 450px;
-  height: 470px;
+  min-height: 470px;
+  height: 100%;
 }
 
 .react-datepicker__triangle {
@@ -265,6 +266,8 @@ h2 {
   color: var(--error-text-color);
   text-align: center;
   margin-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .success {
