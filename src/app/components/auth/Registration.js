@@ -13,8 +13,8 @@ const Registration = observer(() => {
         <h2>Sign up</h2>
         <div className="inputs flex-center">
           <input type="text" placeholder="Username" value={getValue("username")} onChange={handleChange} name="username" autoFocus/>
-          <input type="text" placeholder="Email" value={getValue("email")} onChange={handleChange} name="email"/>
           <input type="password" placeholder="Password" value={getValue("password")} onChange={handleChange} name="password"/>
+          <input type="text" placeholder="Email" value={getValue("email")} onChange={handleChange} name="email" maxLength={60}/>
           <div className="selection-group">
             <div className="selection-group-childes flex-center">
               <label><input type="radio" name="gender" onChange={handleGenderChange} value="male" checked={gender === "male"} />Male</label>

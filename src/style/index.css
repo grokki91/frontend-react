@@ -24,8 +24,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--background-img) no-repeat center center;
+  /* background: var(--background-img) no-repeat center center; */
   background-color: var(--auth-color);
+  background-attachment: fixed;
 }
 
 code {
@@ -153,7 +154,7 @@ button:hover {
   }
   .active {
     color: var(--nav-active);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    font-size: 20px;
   }
   .dropdown {
     display: flex;
@@ -176,6 +177,7 @@ button:hover {
     left: 30px;
     right: 0;
     background: var(--nav-color);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   }
   .dropdown:hover > .dropdown-content {
     display: flex;
@@ -202,7 +204,7 @@ button:hover {
 
 .auth {
   position: relative;
-  background: var(--auth-color);
+  background: var(--nav-color);
   flex-direction: column;
   justify-content: space-evenly;
   height: 400px;
@@ -220,6 +222,7 @@ button:hover {
   display: flex;
   justify-content: space-evenly;
   flex: 0 7px;
+  margin-top: 15px;
 }
 
 .auth-suggest button {
@@ -284,11 +287,12 @@ h2 {
 
 .character, .users, .user {
   flex-direction: column;
-  background: var(--auth-color);
+  background: var(--nav-color);
   border-radius: var(--border-radius);
   padding: 10px;
   max-width: 500px;
   height: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .character {
@@ -511,7 +515,6 @@ input[type="radio"]:checked {
 }
 
 .users {
-  background: var(--auth-color);
   overflow: hidden;
   justify-content: start;
   padding: 20px;
@@ -525,18 +528,29 @@ input[type="radio"]:checked {
     width: 100%;
     /* padding-right: 10px; */
   }
-
   .users-child {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background: var(--auth-color);
     border-radius: var(--border-radius);
     margin-bottom: 10px;
     width: 100%;
+    position: relative;
   }
-  
+  .users-child::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background-color: var(--text-color);
+  }
+  .users-child:last-child::after {
+    content: none;
+  }
   .users-child-fields {
     flex-direction: column;
     align-items: baseline;
@@ -564,7 +578,6 @@ input[type="radio"]:checked {
 }
 
 .user {
-  background: var(--auth-color);
 
   .user-wrapper {
     width: 100%;

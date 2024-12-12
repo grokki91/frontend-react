@@ -51,6 +51,7 @@
     background: none;
     position: relative;
     margin-bottom: 50px;
+    z-index: 999;
 
     #burger-toggle {
       display: none;
@@ -94,10 +95,14 @@
       padding: 20px;
       padding-top: 60px;
       margin: 0;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     }
     .nav-list a {
       display: block;
       padding: 10px;
+    }
+    .nav-list li a {
+      padding: 15px;
     }
     #burger-toggle:checked ~ .nav-list {
       display: flex;
@@ -125,6 +130,7 @@
       padding: 0;
       margin: 0;
       width: 100%;
+      box-shadow: none;
     }
     .dropdown-content a {
       margin: 0;
@@ -248,10 +254,6 @@
 }
 
 @media (max-width: 500px) {
-  body {
-    background: var(--nav-color);
-  }
-
   .container {
     padding: 0;
   }
@@ -302,15 +304,18 @@
     .nav-list {
       height: 100vh;
       justify-content: start;
-      margin-top: 30px;
     }
     .nav-list li a {
       padding: 10px 15px;
-      margin-bottom: 25px;
+      margin-top: 40px;
     }
     .dropdown-content button {
       width: 100%;
       padding: 8px 0;
+      margin-top: 40px;
+    }
+    .active {
+      box-shadow: 0 5px 10px #00000026;
     }
   }
 
