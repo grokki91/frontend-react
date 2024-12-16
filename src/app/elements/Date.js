@@ -9,14 +9,18 @@ import userStore from '../store/UserStore';
 const Date = () => {
     const {handleDateChange, inputStore} = userStore;
     const {getValue} = inputStore;
-    // console.log(getValue("birthday"));
+
+    const handleDateChangeFormatted = (date) => {
+        const formattedDate = date ? date.format('YYYY-MM-DD') : null;
+        handleDateChange(formattedDate);
+      };
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker 
           className="datapicker"
           value={dayjs(getValue("birthday"))}
-          onChange={handleDateChange}
+          onChange={handleDateChangeFormatted}
           name="birthday"
           format="DD/MM/YYYY"
           slotProps={{

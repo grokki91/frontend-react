@@ -6,6 +6,7 @@ import Spinner from "../../elements/Spinner";
 import messageStore from "../../store/MessageStore";
 import Toaster from "../../elements/Toaster";
 import Date from "../../elements/Date";
+import dayjs from 'dayjs';
 
 const User = observer(() => {
   const { inputStore, updateUser, changePassword, fetchUser } = userStore;
@@ -47,7 +48,7 @@ const User = observer(() => {
 
   const renderFields = () => {
     const fields = [
-      { label: "Password", fieldName: "password", isPassword: true },
+      { label: "Password", fieldName: "password"},
       { label: "Email", fieldName: "email" },
       { label: "Birthday", fieldName: "birthday" },
     ];
@@ -73,11 +74,12 @@ const User = observer(() => {
           <>
             <div className="user-view flex-center">
               <div className="user-view-field">{label.toUpperCase()}:</div>
-              {fieldName !== "password" ? (
+              {fieldName !== "password" && fieldName !== "birthday" ? (
                 <div className="user-view-value">{getValue(fieldName)}</div>
               ) : (
                 <></>
               )}
+              {fieldName === "birthday" && <div className="user-view-value">{dayjs(getValue(fieldName)).format('DD-MM-YYYY')}</div>}
             </div>
             <button onClick={() => handleEditChange(fieldName)}>&#9998;</button>
           </>
