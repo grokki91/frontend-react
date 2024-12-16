@@ -1,0 +1,73 @@
+.custom-datapicker {
+  background-color: rgb(240, 237, 238);
+  border-radius: var(--border-radius);
+}
+
+.custom-datapicker fieldset {
+  border: none;
+}
+
+.custom-datapicker .MuiOutlinedInput-root:hover fieldset,
+.custom-datapicker .MuiOutlinedInput-root.Mui-focused fieldset {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.custom-datapicker input {
+  font-size: 15px;
+  padding: 12px;
+}
+
+.custom-datapicker button {
+  width: 100%;
+  box-sizing: content-box;
+}
+
+.custom-datapicker button:hover {
+  background: none;
+}
+
+.custom-datapicker button svg {
+  fill: rgba(0, 0, 0, .42);
+}
+
+.MuiPickersCalendarHeader-label,
+.MuiPickersArrowSwitcher-button,
+.MuiDayCalendar-header,
+.MuiDayCalendar-weekDayLabel,
+.MuiPickersYear-yearButton,
+.MuiPickersMonth-monthButton {
+  color: #000 !important;
+}
+
+.user-edit .MuiFormControl-root {
+    width: 100%;
+    margin-bottom: 10px !important;
+}
+
+.MuiDateCalendar-root {
+    max-width: 300px;
+    width: 100%;
+}
+
+.MuiDateCalendar-root .MuiYearCalendar-root {
+    width: 100%;
+}
+
+.MuiPickersYear-root button {
+    width: 100%;
+}
+
+.MuiDateCalendar-root svg {
+  fill: #000;
+}
+
+@media (max-width: 500px) {
+  .custom-datapicker {
+    width: 100%;
+  }
+  .custom-datapicker input {
+    font-size: 15px;
+  }
+}

@@ -12,7 +12,7 @@ const Login = observer(() => {
       <div className="auth flex-center">
         <h2>Log in</h2>
         <div className="inputs flex-center">
-          <input type="text" placeholder="Username" value={getValue("username")} onChange={handleChange} name="username" autoFocus/>
+          <input type="text" placeholder="Username" value={getValue("username")} onChange={handleChange} name="username" />
           <input type="password" placeholder="Password" value={getValue("password")} onChange={handleChange} name="password"/>
           <div className="message">{formErrorMessage}</div>
         </div>

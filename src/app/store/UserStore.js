@@ -63,6 +63,10 @@ class UserStore {
     this.inputStore.handleChange({target: {name: 'gender', value}})
   }
 
+  handleDateChange = (date) => {
+    this.inputStore.handleChange({ target: { name: "birthday", value: date } });
+  };
+
   fetchAuth = async (url, fields) => {
     if (this.checkFields(fields)) {
       messageStore.setFormErrorMessage("There are empty fields");

@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import userStore from "../../store/UserStore";
 import messageStore from "../../store/MessageStore";
+import Date from "../../elements/Date";
 
 const Registration = observer(() => {
   const {gender, handleGenderChange, registration, inputStore} = userStore;
@@ -12,7 +13,7 @@ const Registration = observer(() => {
       <div className="auth flex-center registration">
         <h2>Sign up</h2>
         <div className="inputs flex-center">
-          <input type="text" placeholder="Username" value={getValue("username")} onChange={handleChange} name="username" autoFocus/>
+          <input type="text" placeholder="Username" value={getValue("username")} onChange={handleChange} name="username" />
           <input type="password" placeholder="Password" value={getValue("password")} onChange={handleChange} name="password"/>
           <input type="text" placeholder="Email" value={getValue("email")} onChange={handleChange} name="email" maxLength={60}/>
           <div className="selection-group">
@@ -21,10 +22,7 @@ const Registration = observer(() => {
               <label><input type="radio" name="gender" onChange={handleGenderChange} value="female" checked={gender === "female"} />Female</label>
             </div>
           </div>
-          <label>
-            <span>Birthday:</span>
-            <input mask="9999-99-99" type="date" placeholder="YYYY-MM-DD" value={getValue("birthday")} onChange={handleChange} name="birthday"/>
-          </label>
+          <Date />
           <div className="message">{formErrorMessage}</div>
         </div>
         <button onClick={() => registration()}>Sign Up</button>

@@ -68,12 +68,6 @@ input[value] {
   color: var(--input-color);
 }
 
-input:focus,
-textarea:focus {
-  border: none;
-  box-shadow: inset 0 0 0 1px var(--button-color);
-}
-
 button {
   all: unset;
 }
@@ -181,6 +175,7 @@ button:hover {
   }
   .dropdown:hover > .dropdown-content {
     display: flex;
+    z-index: 999;
   }
   .dropdown-content li {
     margin-bottom: 10px;
