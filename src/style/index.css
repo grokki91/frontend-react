@@ -278,6 +278,7 @@ h2 {
   gap: 10px;
   flex-wrap: wrap;
   align-items: flex-start;
+  max-width: 1200px;
 }
 
 .character, .users, .user {
