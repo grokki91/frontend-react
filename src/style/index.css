@@ -171,7 +171,7 @@ button:hover {
     left: 30px;
     right: 0;
     background: var(--nav-color);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: -8px 9px 9px rgba(0, 0, 0, 0.2);
   }
   .dropdown:hover > .dropdown-content {
     display: flex;
